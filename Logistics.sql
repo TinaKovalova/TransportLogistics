@@ -125,7 +125,7 @@ CREATE TABLE dbo.[Order]
    OrderId int not null IDENTITY(1,1) primary key,
    Date date NOT NULL,
    FromWhere NVARCHAR(50) NOT NULL,
-   ToWhere NVARCHAR(50) NOT NULL,
+   [Where] NVARCHAR(50) NOT NULL,
    Note NVARCHAR(50) NOT NULL,
    ApplicationStatusId int foreign key REFERENCES dbo.OrderStatus(StatusId),
    UserId int foreign key REFERENCES dbo.[User](UserId),

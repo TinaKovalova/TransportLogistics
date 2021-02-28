@@ -20,7 +20,7 @@ namespace DAL.Context
 
         [Required]
         [StringLength(50)]
-        public string ToWhere { get; set; }
+        public string Where { get; set; }
 
         [Required]
         [StringLength(50)]

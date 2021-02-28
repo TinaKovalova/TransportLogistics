@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class CarsRepository : GenericRepository<Cars>
+    public class CarRepository : GenericRepository<Car>
     {
-        public CarsRepository(DbContext context) : base(context)
+        public CarRepository(DbContext context) : base(context)
         {
         }
     }
