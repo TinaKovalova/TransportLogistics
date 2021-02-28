@@ -20,6 +20,6 @@ namespace DAL.Repositories
         public void CreateOrUpdate(T entity)=> table.AddOrUpdate(entity);
         public T Get(int id)=> table.Find(id);
         public IEnumerable<T> GetAll() => table;
-        public void Remome(T entity) => table.Remove(entity);
+        public void Remove(T entity) => table.Remove(entity);
     }
 }

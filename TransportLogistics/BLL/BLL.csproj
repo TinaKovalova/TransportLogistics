@@ -61,11 +61,22 @@
     <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CarSevice.cs" />
+    <Compile Include="Services\FuelService.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\IUnitOfWork.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\OrderStatusService.cs" />
+    <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UnitOfWork.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{936c5f42-e610-4f07-b45c-af8eef6808b6}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
