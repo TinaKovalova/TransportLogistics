@@ -6,10 +6,10 @@ namespace DAL.Context
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Applications
+    [Table("Order")]
+    public partial class Order
     {
-        [Key]
-        public int ApplicationId { get; set; }
+        public int OrderId { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime Date { get; set; }
@@ -30,8 +30,8 @@ namespace DAL.Context
 
         public int? UserId { get; set; }
 
-        public virtual ApplicationStatus ApplicationStatus { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
 
-        public virtual Users Users { get; set; }
+        public virtual User User { get; set; }
     }
 }

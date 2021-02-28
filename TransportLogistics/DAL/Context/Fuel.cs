@@ -12,7 +12,7 @@ namespace DAL.Context
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Fuel()
         {
-            Cars = new HashSet<Cars>();
+            Car = new HashSet<Car>();
         }
 
         public int FuelId { get; set; }
@@ -22,6 +22,6 @@ namespace DAL.Context
         public string FuelName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cars> Cars { get; set; }
+        public virtual ICollection<Car> Car { get; set; }
     }
 }

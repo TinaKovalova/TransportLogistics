@@ -6,16 +6,16 @@ namespace DAL.Context
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Users
+    [Table("User")]
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Users()
+        public User()
         {
-            Applications = new HashSet<Applications>();
-            Cars = new HashSet<Cars>();
+            Car = new HashSet<Car>();
+            Order = new HashSet<Order>();
         }
 
-        [Key]
         public int UserId { get; set; }
 
         [Required]
@@ -37,11 +37,11 @@ namespace DAL.Context
         public int? UserRoleId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Applications> Applications { get; set; }
+        public virtual ICollection<Car> Car { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cars> Cars { get; set; }
+        public virtual ICollection<Order> Order { get; set; }
 
-        public virtual Roles Roles { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

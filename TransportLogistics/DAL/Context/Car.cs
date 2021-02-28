@@ -6,9 +6,9 @@ namespace DAL.Context
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Cars
+    [Table("Car")]
+    public partial class Car
     {
-        [Key]
         public int CarId { get; set; }
 
         [Required]
@@ -25,7 +25,7 @@ namespace DAL.Context
 
         public int? DriverId { get; set; }
 
-        public virtual Users Users { get; set; }
+        public virtual User User { get; set; }
 
         public virtual Fuel Fuel { get; set; }
     }

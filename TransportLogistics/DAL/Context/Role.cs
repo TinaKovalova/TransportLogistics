@@ -6,22 +6,22 @@ namespace DAL.Context
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ApplicationStatus
+    [Table("Role")]
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ApplicationStatus()
+        public Role()
         {
-            Applications = new HashSet<Applications>();
+            User = new HashSet<User>();
         }
 
-        [Key]
-        public int StatusId { get; set; }
+        public int RoleId { get; set; }
 
         [Required]
         [StringLength(20)]
-        public string StatusName { get; set; }
+        public string RoleName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Applications> Applications { get; set; }
+        public virtual ICollection<User> User { get; set; }
     }
 }
