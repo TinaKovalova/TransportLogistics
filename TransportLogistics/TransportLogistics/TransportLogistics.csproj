@@ -70,12 +70,17 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\ViewModelLocator.cs" />
     <Compile Include="Modules\LogisticsNinjectModule.cs" />
-    <Compile Include="ViewModels\UserControlsModels\StartViewModel.cs" />
-    <Compile Include="Views\UserControls\ApplicationView.xaml.cs">
-      <DependentUpon>ApplicationView.xaml</DependentUpon>
+    <Compile Include="ViewModels\UserControlsModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\DirectoryViewModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\OrderViewModel.cs" />
+    <Compile Include="Views\UserControls\AccountView.xaml.cs">
+      <DependentUpon>AccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\StartView.xaml.cs">
-      <DependentUpon>StartView.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\DirectoryView.xaml.cs">
+      <DependentUpon>DirectoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -92,11 +97,15 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\UserControls\ApplicationView.xaml">
+    <Page Include="Views\UserControls\AccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\StartView.xaml">
+    <Page Include="Views\UserControls\DirectoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\OrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

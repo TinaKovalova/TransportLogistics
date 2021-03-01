@@ -8,6 +8,8 @@ using BLL.Services;
 using BLL.DTO;
 using DAL.Context;
 using DAL.Repositories;
+using System.Data.Entity;
+
 
 namespace TransportLogistics.Modules
 {
@@ -28,6 +30,7 @@ namespace TransportLogistics.Modules
             Bind<IRepository<Order>>().To<OrderRepository>();
             Bind<IRepository<Role>>().To<RoleRepository>();
             Bind<IRepository<OrderStatus>>().To<OrderStatusRepository>();
+            Bind<DbContext>().To<LogisticsContext>().InSingletonScope();
         }
     }
 }

@@ -6,14 +6,45 @@
         xmlns:vm="clr-namespace:TransportLogistics.Infrastructure"
         xmlns:local="clr-namespace:TransportLogistics"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="650" Width="850"
         DataContext="{StaticResource vmlocator}">
- 
-   
-    <Grid DataContext="{Binding MainViewModel}">
-        <ContentControl Content="{Binding CurrentView}">
 
-        </ContentControl>
+
+    <Grid  DataContext="{Binding MainViewModel}"  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal">
+            <ComboBox Width="150"
+                      Height="30"
+                      Margin="5"
+                      ItemsSource="{Binding Roles}"
+                      SelectedValue="{Binding SelectedRole}"></ComboBox>
+        </StackPanel>
+        <Grid Grid.Row="1"
+              Margin="10"
+              Background="LightPink">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <Button  Height="30"
+                         Command="{Binding DirectoryCommand}">Справочник</Button>
+                <Button  Height="30"
+                          Command="{Binding OrderCommand}">Заказы</Button>
+                <Button  Height="30"
+                         Command="{Binding AccountCommand}">Отчет</Button>
+               
+
+            </StackPanel>
+            <ContentControl Grid.Column="1" Content="{Binding CurrentView}">
+
+            </ContentControl>
+        </Grid>
+       
 
     </Grid>
 </Window>

@@ -15,7 +15,9 @@ namespace TransportLogistics.Infrastructure
         IKernel kernel;
         public ViewModelLocator() => kernel = new StandardKernel(new LogisticsNinjectModule());
         public MainViewModel MainViewModel => kernel.Get<MainViewModel>();
-        public StartViewModel StartViewModel => kernel.Get<StartViewModel>();
-        
+        public DirectoryViewModel DirectoryViewModel => kernel.Get<DirectoryViewModel>();
+        public AccountViewModel AccountViewModel => kernel.Get<AccountViewModel>();
+        public OrderViewModel OrderViewModel => kernel.Get<OrderViewModel>();
+
     }
 }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TransportLogistics.Views.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для ApplicationView.xaml
+    /// Логика взаимодействия для AccountView.xaml
     /// </summary>
-    public partial class ApplicationView : UserControl
+    public partial class AccountView : UserControl
     {
-        public ApplicationView()
+        public AccountView()
         {
             InitializeComponent();
         }

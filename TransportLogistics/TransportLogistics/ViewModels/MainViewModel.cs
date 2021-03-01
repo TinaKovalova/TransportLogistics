@@ -17,9 +17,7 @@ namespace TransportLogistics.ViewModels
     public class MainViewModel:BaseNotifyPropertyChanged
     {
         #region 
-        private UserControl currentView;
-        ObservableCollection<UserDTO> users;
-
+        private UserControl currentView = null;
         public UserControl CurrentView
         {
             get => currentView;
@@ -29,36 +27,64 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
-        public ObservableCollection<UserDTO> Users
+        public string SelectedRole { get; set; }
+
+        private ObservableCollection<string> roles;
+
+        public ObservableCollection<string> Roles
         {
-            get => users;
+            get => roles;
             set
             {
-                users = value;
+                roles = value;
                 Notify();
             }
         }
-        
-        IService<UserDTO> userService;
-        
-        #endregion
-        public MainViewModel(IService<UserDTO>userService)
-        {
-            this.userService = userService;
 
+
+        private IService<RoleDTO> roleService;
+
+        #endregion
+        #region Commands
+        public ICommand DirectoryCommand { get; set; }
+        public ICommand OrderCommand { get; set; }
+        public ICommand AccountCommand { get; set; }
+        #endregion
+
+        public MainViewModel(IService<RoleDTO> roleService)
+        {
+            this.roleService = roleService;
+            this.roleService = roleService;
+           // CurrentView = new DirectoryView();
+            // InitCollection();
+            Roles = new ObservableCollection<string>(roleService.GetAll().Select(x => x.ToString()));
             InitCommands();
-            currentView = new StartView();
+          
         }
+       
         private void InitCommands()
         {
-            AuthorizationCommand = new RelayCommand(obj =>
-             {
+            DirectoryCommand = new RelayCommand(obj =>
+            {
+                CurrentView = new DirectoryView();
+            });
+            OrderCommand = new RelayCommand(obj =>
+            {
+               CurrentView = new OrderView();
+            });
+            AccountCommand = new RelayCommand(obj =>
+            {
+               CurrentView = new AccountView();
+            });
 
-             });
 
         }
-        #region Command
-        public ICommand AuthorizationCommand { get; set; }
-        #endregion
+        /*
+      private async void InitCollection()
+      {
+          await Task.Run(() => Roles = new ObservableCollection<string>(roleService.GetAll().Select(x => x.ToString())));
+      }*/
+       
+
     }
 }

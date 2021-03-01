@@ -9,5 +9,8 @@ namespace BLL.DTO
     public class RoleDTO
     {
         public string RoleName { get; set; }
+        public override string ToString() => $"{RoleName}";
+
+
     }
 }
