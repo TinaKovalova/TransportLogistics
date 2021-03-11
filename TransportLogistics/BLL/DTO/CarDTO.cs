@@ -8,6 +8,7 @@ namespace BLL.DTO
 {
     public class CarDTO
     {
+        public int CarId { get; set; }
         public string CarName { get; set; }
         public string CarNumber { get; set; }
         public decimal FuelConsumption { get; set; }

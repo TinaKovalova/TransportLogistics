@@ -8,6 +8,7 @@ namespace BLL.DTO
 {
     public class UserDTO
     {
+        public int UserId { get; set; }
         public string UserLastName { get; set; }
 
         public string UserFirstName { get; set; }

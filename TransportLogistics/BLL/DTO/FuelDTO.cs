@@ -8,6 +8,7 @@ namespace BLL.DTO
 {
     public class FuelDTO
     {
+        public int FuelId { get; set; }
         public string FuelName { get; set; }
     }
 }

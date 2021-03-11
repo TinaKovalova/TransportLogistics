@@ -26,7 +26,7 @@ namespace DAL.Context
         [StringLength(50)]
         public string Note { get; set; }
 
-        public int? ApplicationStatusId { get; set; }
+        public int? StatusId { get; set; }
 
         public int? UserId { get; set; }
 

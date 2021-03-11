@@ -8,6 +8,7 @@ namespace BLL.DTO
 {
     public class OrderStatusDTO
     {
+        public int StatusId { get; set; }
         public string StatusName { get; set; }
     }
 }

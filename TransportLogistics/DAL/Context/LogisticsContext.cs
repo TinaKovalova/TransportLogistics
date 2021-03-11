@@ -24,16 +24,6 @@ namespace DAL.Context
             modelBuilder.Entity<Car>()
                 .Property(e => e.FuelConsumption)
                 .HasPrecision(18, 0);
-
-            modelBuilder.Entity<OrderStatus>()
-                .HasMany(e => e.Order)
-                .WithOptional(e => e.OrderStatus)
-                .HasForeignKey(e => e.ApplicationStatusId);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Car)
-                .WithOptional(e => e.User)
-                .HasForeignKey(e => e.DriverId);
         }
     }
 }

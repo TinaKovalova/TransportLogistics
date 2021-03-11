@@ -6,40 +6,71 @@
         xmlns:vm="clr-namespace:TransportLogistics.Infrastructure"
         xmlns:local="clr-namespace:TransportLogistics"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="850"
+        Title="MainWindow" Height="650" Width="1000"
         DataContext="{StaticResource vmlocator}">
 
 
     <Grid  DataContext="{Binding MainViewModel}"  >
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="0.3*"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
-            <ComboBox Width="150"
+            <Menu
+                   FontSize="12"
+                   FontWeight="DemiBold">
+                <MenuItem
+                    Width="170"
+                    Margin="10 0 0 0 "
+                    BorderBrush="Gray"
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="OrderView">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="10" Width="10" Fill="Black" Margin="0 0 5 0" />
+                            <TextBlock Margin="10 0 0 0 ">Заказы</TextBlock>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem 
+                    Width="170"
+                    Margin="10 0 0 0 "
+                    BorderBrush="Gray"
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="AccountView">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="10" Width="10" Fill="Black" Margin="0 0 5 0" />
+                            <TextBlock Margin="10 0 0 0 ">Отчеты</TextBlock>
+                        </StackPanel>
+                    </MenuItem.Header></MenuItem>
+                <MenuItem 
+                    Width="170"
+                    Margin="10 0 0 0 "
+                    BorderBrush="Gray"
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="DirectoryView">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="10" Width="10" Fill="Black" Margin="0 0 5 0" />
+                            <TextBlock Margin="10 0 0 0 ">Справочники</TextBlock>
+                        </StackPanel>
+                    </MenuItem.Header>
+                    
+                </MenuItem>
+            </Menu>
+            <ComboBox Width="170"
                       Height="30"
-                      Margin="5"
+                      Margin="10 0 0 0 "
+                      BorderBrush="Gray"
                       ItemsSource="{Binding Roles}"
                       SelectedValue="{Binding SelectedRole}"></ComboBox>
         </StackPanel>
         <Grid Grid.Row="1"
-              Margin="10"
               Background="LightPink">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="7*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <Button  Height="30"
-                         Command="{Binding DirectoryCommand}">Справочник</Button>
-                <Button  Height="30"
-                          Command="{Binding OrderCommand}">Заказы</Button>
-                <Button  Height="30"
-                         Command="{Binding AccountCommand}">Отчет</Button>
-               
-
-            </StackPanel>
+           
+           
             <ContentControl Grid.Column="1" Content="{Binding CurrentView}">
 
             </ContentControl>

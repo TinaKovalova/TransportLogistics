@@ -59,7 +59,7 @@ CREATE TABLE dbo.[User]
    UserFirstName NVARCHAR(50) NOT NULL,
    UserPatronymic NVARCHAR(50) NOT NULL,
    UserDrivingLecense NVARCHAR(20) NOT NULL,
-   UserRoleId int foreign key REFERENCES dbo.Role(RoleId)
+   RoleId int foreign key REFERENCES dbo.Role(RoleId)
 );
 GO
 SET IDENTITY_INSERT dbo.[User] ON;
@@ -102,7 +102,7 @@ CREATE TABLE dbo.Car
    CarNumber NVARCHAR(20) NOT NULL,
    FuelConsumption decimal NOT NULL,
    FuelId int foreign key REFERENCES dbo.Fuel(FuelId),
-   DriverId int foreign key REFERENCES dbo.[User](UserId),
+   UserId int foreign key REFERENCES dbo.[User](UserId),
 );
 GO
 
@@ -127,7 +127,7 @@ CREATE TABLE dbo.[Order]
    FromWhere NVARCHAR(50) NOT NULL,
    [Where] NVARCHAR(50) NOT NULL,
    Note NVARCHAR(50) NOT NULL,
-   ApplicationStatusId int foreign key REFERENCES dbo.OrderStatus(StatusId),
+   StatusId int foreign key REFERENCES dbo.OrderStatus(StatusId),
    UserId int foreign key REFERENCES dbo.[User](UserId),
 );
 GO

@@ -8,7 +8,7 @@ namespace BLL.DTO
 {
     public class OrderDTO
     {
-        
+        public int OrderId { get; set; }
         public DateTime Date { get; set; }
         public string FromWhere { get; set; }
         public string Where { get; set; }
