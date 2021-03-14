@@ -8,121 +8,36 @@
              d:DesignHeight="450" d:DesignWidth="1000"
               DataContext="{StaticResource vmlocator}">
     <Grid DataContext="{Binding MainViewModel}">
-        <TabControl Background="Lavender"
-                    FontSize="12"
-                    FontWeight="DemiBold">
-            <TabItem Width="155"
-                     Margin="5 0 0 0">
+       <TabControl Background="Lavender"
+                   SelectedItem="{Binding SelectedTabItem}">
+            <TabItem>
                 <TabItem.Header>Пользователи</TabItem.Header>
                 <TabItem.Content>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.1*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="0.5*"></RowDefinition>
+                            <RowDefinition Height="6*"></RowDefinition>
                         </Grid.RowDefinitions>
-                <Menu Grid.Row="0"
-                      Margin="5"
-                      FontSize="12"
-                      FontWeight="DemiBold">
-                    <MenuItem
-                         Width="170"
-                         Margin="10 0 0 0 "
-                         BorderBrush="Gray"
-                         Command="{Binding CreateCommand}"
-                         CommandParameter="user">
-                        <MenuItem.Header>
-                           <StackPanel Orientation="Horizontal">
-                                <Ellipse Height="10" Width="10" Fill="Black" Margin="0 0 5 0" />
-                                <TextBlock Margin="10 0 0 0 ">Добавить</TextBlock>
-                           </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-               </Menu>
-                        <Grid Grid.Row="1" Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1.6*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="1" Margin="5">
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Center"
-                                            Margin="0 5 0 30">
-                                    <Button Margin="5"
-                                    Width="100"
-                                            Command="{Binding SaveOrCancelCommand}"
-                                            CommandParameter="save">Сохранить</Button>
-                                    <Button Margin="5"
-                                    Width="100"
-                                            Command="{Binding SaveOrCancelCommand}"
-                                            CommandParameter="cancel">Отмена</Button>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Width="80">Фамилия:</Label>
-                                    <TextBox Width="180"
-                                             Text="{Binding SelectedUser.UserLastName}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Width="80">Имя:</Label>
-                                    <TextBox Width="180"
-                                             Text="{Binding SelectedUser.UserFirstName}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Width="80">Отчество:</Label>
-                                    <TextBox Width="180"
-                                             Text="{Binding SelectedUser.UserPatronymic}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Width="80">Документ:</Label>
-                                    <TextBox Width="180"
-                                             Text="{Binding SelectedUser.UserDrivingLecense}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Width="80">Роль:</Label>
-                                    <ComboBox Width="180" 
-                                              ItemsSource="{Binding Roles}"  Text="{Binding SelectedUser.UserRole}"></ComboBox>
-                                </StackPanel>
-                                
-
-                            </StackPanel>
-                            <ScrollViewer>
-                                <ListView ItemsSource="{Binding Users}"
-                                          SelectedItem="{Binding SelectedUser}" Width="712">
-                                    <ListView.View>
-                                        <GridView Selector.IsSelected="False">
-                                            <GridViewColumn DisplayMemberBinding="{Binding UserLastName}" Width="130">Фамилия</GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding UserFirstName}" Width="130">Имя</GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding UserPatronymic}" Width="130">Отчество</GridViewColumn>
-                                            <GridViewColumn Width="95">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button Width="80"
-                                                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=3},Path=DataContext.RemoveCommand}"
-                                                                CommandParameter="user">Удалить</Button>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Width="95">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button Width="80"
-                                                                Command="">Изменить</Button>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </ScrollViewer>
-                        </Grid>
+                        <Button Margin="5"
+                                Grid.Row="0" 
+                                Width="200"
+                                HorizontalAlignment="Left"
+                                Command="{Binding CreateCommand}"
+                                CommandParameter="CreateUser">Создать нового пользователя</Button>
                         
+
+                        <Grid Grid.Row="1" Background="LightPink">
+                            <ContentControl Content="{Binding CurrentFirstChildView}">
+
+                            </ContentControl>
+                        </Grid>
                        
                     </Grid>
 
 
                 </TabItem.Content>
             </TabItem>
-            <TabItem Width="155"               
-                     Margin="5 0 0 0">
+            <TabItem>
                 <TabItem.Header>Автомобили</TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
@@ -130,8 +45,7 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
-            <TabItem Width="155"
-                     Margin="5 0 0 0">
+            <TabItem>
                 <TabItem.Header>Роли</TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
@@ -139,8 +53,7 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
-            <TabItem Width="155"               
-                     Margin="5 0 0 0">
+            <TabItem>
                 <TabItem.Header>Статус заказа</TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
@@ -148,8 +61,7 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
-            <TabItem Width="155"                
-                     Margin="5 0 0 0">
+            <TabItem>
                 <TabItem.Header>Топливо</TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
@@ -159,6 +71,6 @@
             </TabItem>
         </TabControl>
 
-
+        
     </Grid>
 </UserControl>

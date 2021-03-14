@@ -11,19 +11,84 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using TransportLogistics.Infrastructure;
 using TransportLogistics.Views.UserControls;
-
+using TransportLogistics.Views.UserControls.ChildrenUserControls;
 
 namespace TransportLogistics.ViewModels
 {
     public class MainViewModel:BaseNotifyPropertyChanged
     {
         #region Fields & Propertyes
-        private UserControl currentView = null;
+        private UserControl currentView;
+        private UserControl currentFirstChildView;
+        private UserControl currentLastChildView;
+
+        private TabItem selectedTabItem;
         private ObservableCollection<string> roles;
         private ObservableCollection<UserDTO> users;
         private UserDTO selectedUser;
+       
+       
+        
         private IService<RoleDTO> rolesService;
         private IService<UserDTO> usersService;
+      
+        public UserControl CurrentFirstChildView
+        {
+            get => currentFirstChildView;
+            set
+            {
+                currentFirstChildView = value;
+                Notify();
+            }
+        }
+        public UserControl CurrentLastChildView
+        {
+            get => currentLastChildView;
+            set
+            {
+                currentLastChildView = value;
+                Notify();
+            }
+        }
+        public TabItem SelectedTabItem
+        {
+            get => selectedTabItem;
+            set
+            {
+                selectedTabItem = value;
+                var param = selectedTabItem.Header;
+                switch (param)
+                {
+                    case "Пользователи":
+                        {
+                            CurrentFirstChildView = new UserView();
+                            break;
+                        }
+                    case "Автомобили":
+                        {
+                           // CurrentView = new OrderView();
+                            break;
+                        }
+                    case "Роли":
+                        {
+                            //CurrentView = new AccountView();
+                            break;
+                        }
+                    case "Статус заказа":
+                        {
+                            //CurrentView = new AccountView();
+                            break;
+                        }
+                    case "Топливо":
+                        {
+                            //CurrentView = new AccountView();
+                            break;
+                        }
+                }
+
+                Notify();
+            }
+        }
         public UserControl CurrentView
         {
             get => currentView;
@@ -40,10 +105,12 @@ namespace TransportLogistics.ViewModels
             get => selectedUser;
             set
             {
-                selectedUser = value;
+               selectedUser = value;
+            
                 Notify();
             }
         }
+       
         public ObservableCollection<string> Roles
         {
             get => roles;
@@ -77,10 +144,11 @@ namespace TransportLogistics.ViewModels
 
         public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService)
         {
+            
             this.rolesService = rolesService;
             this.usersService = usersService;
            
-           // CurrentView = new DirectoryView();
+          
             // InitCollection();
             Roles = new ObservableCollection<string>(rolesService.GetAll().Select(x => x.ToString()));
             Users = new ObservableCollection<UserDTO>(usersService.GetAll().ToList());
@@ -98,6 +166,7 @@ namespace TransportLogistics.ViewModels
                     case "DirectoryView":
                         {
                             CurrentView = new DirectoryView();
+                            CurrentFirstChildView = new CreateUserView();
                             break;
                         }
                     case "OrderView":
@@ -114,22 +183,29 @@ namespace TransportLogistics.ViewModels
             });
             CreateCommand = new RelayCommand(obj =>
              {
+                 UserDTO d = SelectedUser;
                  var param = obj as String;
                  switch (param)
                  {
-                     case "user":
+                     case "CreateUser":
                          {
-                             SelectedUser = new UserDTO();
+                            SelectedUser = new UserDTO();
+                             CurrentFirstChildView =new CreateUserView();
+                            // usersService.CreateOrUpdate(SelectedUser);
+
+                            
                              break;
                          }
-                     case "":
+                     case "EditUser":
                          {
-                             CurrentView = new OrderView();
+
+
+                             // CurrentFirstChildView = new CreateUserView();
                              break;
                          }
                      case "2":
                          {
-                             CurrentView = new AccountView();
+                             //CurrentView = new AccountView();
                              break;
                          }
                  }
@@ -160,7 +236,7 @@ namespace TransportLogistics.ViewModels
                             MessageBoxResult result=MessageBox.Show($"Вы действительно хотите удалить {SelectedUser.UserLastName} {SelectedUser.UserFirstName} {SelectedUser.UserPatronymic}","?",MessageBoxButton.YesNo) ;
                             if (result == MessageBoxResult.Yes)
                             {
-                                usersService.Remove(SelectedUser);
+                                //usersService.Remove(SelectedUser);
                             }
                             //usersService.Remove(SelectedUser);
                                 break;

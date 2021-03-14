@@ -7,6 +7,7 @@ using Ninject;
 using TransportLogistics.Modules;
 using TransportLogistics.ViewModels;
 using TransportLogistics.ViewModels.UserControlsModels;
+using TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels;
 
 namespace TransportLogistics.Infrastructure
 {
@@ -18,6 +19,8 @@ namespace TransportLogistics.Infrastructure
         public DirectoryViewModel DirectoryViewModel => kernel.Get<DirectoryViewModel>();
         public AccountViewModel AccountViewModel => kernel.Get<AccountViewModel>();
         public OrderViewModel OrderViewModel => kernel.Get<OrderViewModel>();
+        public UserViewModel UserViewModel => kernel.Get<UserViewModel>();
+        public CreateUserModel CreateUpdateUserModel => kernel.Get<CreateUserModel>();
 
     }
 }

@@ -71,10 +71,18 @@
     <Compile Include="Infrastructure\ViewModelLocator.cs" />
     <Compile Include="Modules\LogisticsNinjectModule.cs" />
     <Compile Include="ViewModels\UserControlsModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateUserModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\UserViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\DirectoryViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\OrderViewModel.cs" />
     <Compile Include="Views\UserControls\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ChildrenUserControls\CreateUserView.xaml.cs">
+      <DependentUpon>CreateUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ChildrenUserControls\UserView.xaml.cs">
+      <DependentUpon>UserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\DirectoryView.xaml.cs">
       <DependentUpon>DirectoryView.xaml</DependentUpon>
@@ -98,6 +106,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\UserControls\AccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ChildrenUserControls\CreateUserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ChildrenUserControls\UserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

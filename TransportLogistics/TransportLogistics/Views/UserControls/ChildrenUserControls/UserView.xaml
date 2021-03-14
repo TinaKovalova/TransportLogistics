@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="TransportLogistics.Views.UserControls.ChildrenUserControls.UserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TransportLogistics.Views.UserControls.ChildrenUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+               DataContext="{StaticResource vmlocator}">
+    <Grid DataContext="{Binding MainViewModel}"  Margin="5,4.6,5.4,5.4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.6*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1" Margin="5" DataContext="{Binding SelectedUser}">
+            <Label>Редактировние</Label>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Width="80">Фамилия:</Label>
+                <TextBlock Width="180"
+                                             Text="{Binding UserLastName}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Width="80">Имя:</Label>
+                <TextBox Width="180"
+                                             Text="{Binding UserFirstName}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Width="80">Отчество:</Label>
+                <TextBox Width="180"
+                                             Text="{Binding UserPatronymic}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Width="80">Документ:</Label>
+                <TextBox Width="180"
+                         Text="{Binding UserDrivingLecense}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Width="80">Роль:</Label>
+                <TextBlock Width="180" Text="{Binding UserRole}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="030">
+                <Button Margin="5"
+                        Width="100">Сохранить</Button>
+                <Button Margin="5"
+                        Width="100">Отмена</Button>
+            </StackPanel>
+    
+
+
+        </StackPanel>
+        <ScrollViewer>
+            <ListView ItemsSource="{Binding Users}"
+                      SelectedItem="{Binding SelectedUser}" Width="500">
+                <ListView.View>
+                    <GridView Selector.IsSelected="False">
+                        <GridViewColumn DisplayMemberBinding="{Binding UserLastName}" Width="195">Фамилия</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding UserFirstName}" Width="195">Имя</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding UserPatronymic}" Width="195">Отчество</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
