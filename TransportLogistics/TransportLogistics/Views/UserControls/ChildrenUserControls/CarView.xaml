@@ -5,8 +5,57 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TransportLogistics.Views.UserControls.ChildrenUserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{StaticResource vmlocator}">
+    <Grid DataContext="{Binding MainViewModel}"  Margin="5,4.6,5.4,5.4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.6*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1" Margin="5">
+            <Label Margin="100 0">Редактировние</Label>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Width="80">Название:</Label>
+                <TextBlock Width="180"
+                           Text="{Binding SelectedCar.CarName}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Width="80">Номер:</Label>
+                <TextBox Width="180"
+                         Text="{Binding SelectedCar.CarNumber}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Width="80">Расход топлива:</Label>
+                <TextBox Width="180"
+                         Text="{Binding SelectedCar.FuelConsumption}"></TextBox>
+            </StackPanel>
+          
+          
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="030">
+                <Button Margin="5"
+                        Width="100"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
+                        CommandParameter="save car">Сохранить</Button>
+                <Button Margin="5"
+                        Width="100"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
+                        CommandParameter="cancel car">Отмена</Button>
+            </StackPanel>
+
+
+
+        </StackPanel>
+        <ScrollViewer>
+            <ListView ItemsSource="{Binding Cars}"
+                      SelectedItem="{Binding SelectedCar}">
+                <ListView.View>
+                    <GridView Selector.IsSelected="False">
+                        <GridViewColumn DisplayMemberBinding="{Binding CarName}" Width="190">Автомобиль</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding CarNumber}" Width="190">Номер авто</GridViewColumn>
+                        
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
     </Grid>
 </UserControl>

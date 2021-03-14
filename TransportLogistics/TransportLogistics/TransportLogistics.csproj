@@ -72,10 +72,12 @@
     <Compile Include="Modules\LogisticsNinjectModule.cs" />
     <Compile Include="ViewModels\UserControlsModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CarViewModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateCarViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateRoleViewModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateStatusViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateUserModel.cs" />
-    <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\OrderStatusViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\StatusViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\UserViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\DirectoryViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\OrderViewModel.cs" />
@@ -85,17 +87,23 @@
     <Compile Include="Views\UserControls\ChildrenUserControls\CarView.xaml.cs">
       <DependentUpon>CarView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\ChildrenUserControls\CreateCarView.xaml.cs">
+      <DependentUpon>CreateCarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\ChildrenUserControls\CreateRoleView.xaml.cs">
       <DependentUpon>CreateRoleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ChildrenUserControls\CreateStatusView.xaml.cs">
+      <DependentUpon>CreateStatusView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ChildrenUserControls\CreateUserView.xaml.cs">
       <DependentUpon>CreateUserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ChildrenUserControls\OrderStatusView.xaml.cs">
-      <DependentUpon>OrderStatusView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserControls\ChildrenUserControls\RoleView.xaml.cs">
       <DependentUpon>RoleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ChildrenUserControls\StatusView.xaml.cs">
+      <DependentUpon>StatusView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ChildrenUserControls\UserView.xaml.cs">
       <DependentUpon>UserView.xaml</DependentUpon>
@@ -129,7 +137,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\ChildrenUserControls\CreateCarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\ChildrenUserControls\CreateRoleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ChildrenUserControls\CreateStatusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,11 +153,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\ChildrenUserControls\OrderStatusView.xaml">
+    <Page Include="Views\UserControls\ChildrenUserControls\RoleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\ChildrenUserControls\RoleView.xaml">
+    <Page Include="Views\UserControls\ChildrenUserControls\StatusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

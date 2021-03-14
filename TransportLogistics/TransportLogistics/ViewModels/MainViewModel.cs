@@ -1,11 +1,8 @@
 ﻿using BLL.DTO;
 using BLL.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,18 +18,24 @@ namespace TransportLogistics.ViewModels
         private UserControl currentView;
         private UserControl currentFirstChildView;
         private UserControl currentLastChildView;
+        //private UserControl prevView;
 
         private TabItem selectedTabItem;
         private ObservableCollection<RoleDTO> roles;
         private ObservableCollection<UserDTO> users;
+        private ObservableCollection<OrderStatusDTO> orderStatuses;
+        private ObservableCollection<CarDTO> cars;
         private UserDTO selectedUser;
         private RoleDTO selectedRole;
-       
-       
-        
+        private OrderStatusDTO  selectedOrderStatus;
+        private CarDTO selectedCar;
+
+
+
         private IService<RoleDTO> rolesService;
         private IService<UserDTO> usersService;
-      
+        private IService<OrderStatusDTO> orderStatusService;
+        private IService<CarDTO> carService;
         public UserControl CurrentFirstChildView
         {
             get => currentFirstChildView;
@@ -51,6 +54,16 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
+       /* public UserControl PrevView
+        {
+            get => prevView;
+            set
+            {
+                prevView = value;
+                Notify();
+            }
+        }*/
+
         // Создается главное представление на TabItem -----------------------------------------
         public TabItem SelectedTabItem
         {
@@ -65,6 +78,7 @@ namespace TransportLogistics.ViewModels
                     case "Пользователи":
                         {
                             CurrentFirstChildView = new UserView();
+                            
                             break;
                         }
                     case "Автомобили":
@@ -79,7 +93,7 @@ namespace TransportLogistics.ViewModels
                         }
                     case "Статус заказа":
                         {
-                            CurrentFirstChildView = new OrderStatusView();
+                            CurrentFirstChildView = new StatusView();
                             break;
                         }
                     case "Топливо":
@@ -120,7 +134,26 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
-       
+        public OrderStatusDTO SelectedOrderStatus
+        {
+            get => selectedOrderStatus;
+            set
+            {
+                selectedOrderStatus = value;
+
+                Notify();
+            }
+        }
+        public CarDTO SelectedCar
+        {
+            get => selectedCar;
+            set
+            {
+                selectedCar = value;
+
+                Notify();
+            }
+        }
         public ObservableCollection<RoleDTO> Roles
         {
             get => roles;
@@ -139,12 +172,31 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
+        public ObservableCollection<OrderStatusDTO> OrderStatuses
+        {
+            get => orderStatuses;
+            set
+            {
+                orderStatuses = value;
+                Notify();
+            }
+        }
+        public ObservableCollection<CarDTO> Cars
+        {
+            get => cars;
+            set
+            {
+                cars = value;
+                Notify();
+            }
+        }
+
 
         #endregion
 
 
         #region Commands
-       
+
         public ICommand ChangeViewCommand { get; set; }
         public ICommand CreateCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
@@ -152,16 +204,20 @@ namespace TransportLogistics.ViewModels
 
         #endregion
 
-        public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService)
+        public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService, IService<OrderStatusDTO> orderStatusService, IService<CarDTO> carService)
         {
             
             this.rolesService = rolesService;
             this.usersService = usersService;
+            this.orderStatusService = orderStatusService;
+            this.carService = carService;
            
           
             // InitCollection();
             Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
             Users = new ObservableCollection<UserDTO>(usersService.GetAll().ToList());
+            OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
+            Cars = new ObservableCollection<CarDTO>(carService.GetAll());
             InitCommands();
           
         }
@@ -197,24 +253,30 @@ namespace TransportLogistics.ViewModels
                  var param = obj as String;
                  switch (param)
                  {
-                     case "CreateUser":
+                     case "User":
                          {
                             SelectedUser = new UserDTO();
                             CurrentFirstChildView =new CreateUserView();
                                                     
                              break;
                          }
-                     case "EditUser":
+                     case "Car":
                          {
 
-
-                             // CurrentFirstChildView = new CreateUserView();
+                             SelectedCar = new CarDTO();
+                             CurrentFirstChildView = new CreateCarView();
                              break;
                          }
                      case "Role":
                          {
                              SelectedRole = new RoleDTO();
                              CurrentFirstChildView = new CreateRoleView();
+                             break;
+                         }
+                     case "Status":
+                         {
+                             SelectedOrderStatus = new OrderStatusDTO();
+                             CurrentFirstChildView = new CreateStatusView();
                              break;
                          }
                  }
@@ -237,7 +299,8 @@ namespace TransportLogistics.ViewModels
                              }
                          case "car":
                              {
-                                 CurrentFirstChildView = new CarView();
+                                 carService.CreateOrUpdate(SelectedCar);
+                                 Cars = new ObservableCollection<CarDTO>(carService.GetAll());
                                  break;
                              }
                          case "role":
@@ -248,7 +311,8 @@ namespace TransportLogistics.ViewModels
                              }
                          case "status":
                              {
-                                 CurrentFirstChildView = new OrderStatusView();
+                                 orderStatusService.CreateOrUpdate(SelectedOrderStatus);
+                                 OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
                                  break;
                              }
                          case "Топливо":

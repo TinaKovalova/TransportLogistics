@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TransportLogistics.Views.UserControls.ChildrenUserControls
 {
     /// <summary>
-    /// Логика взаимодействия для OrderStatusView.xaml
+    /// Логика взаимодействия для StatusView.xaml
     /// </summary>
-    public partial class OrderStatusView : UserControl
+    public partial class StatusView : UserControl
     {
-        public OrderStatusView()
+        public StatusView()
         {
             InitializeComponent();
         }

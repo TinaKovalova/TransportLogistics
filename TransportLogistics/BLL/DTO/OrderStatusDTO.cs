@@ -10,5 +10,7 @@ namespace BLL.DTO
     {
         public int StatusId { get; set; }
         public string StatusName { get; set; }
+        public override string ToString() => $"{StatusName}";
+       
     }
 }

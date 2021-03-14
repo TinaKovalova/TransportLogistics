@@ -8,9 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="1000"
               DataContext="{StaticResource vmlocator}">
     <Grid DataContext="{Binding MainViewModel}">
-       <TabControl Background="Lavender"
+        <TabControl Background="Lavender"
                    SelectedItem="{Binding SelectedTabItem}">
-            <TabItem>
+            <TabItem  Width="100">
                 <TabItem.Header>Пользователи</TabItem.Header>
                 <TabItem.Content>
                     <Grid>
@@ -23,29 +23,46 @@
                                 Width="200"
                                 HorizontalAlignment="Left"
                                 Command="{Binding CreateCommand}"
-                                CommandParameter="CreateUser">Создать нового пользователя</Button>
-                        
+                                CommandParameter="User">Создать нового пользователя</Button>
+
 
                         <Grid Grid.Row="1" Background="LightPink">
                             <ContentControl Content="{Binding CurrentFirstChildView}">
 
                             </ContentControl>
                         </Grid>
-                       
+
                     </Grid>
 
 
                 </TabItem.Content>
             </TabItem>
-            <TabItem>
+            <TabItem Width="100">
                 <TabItem.Header>Автомобили</TabItem.Header>
                 <TabItem.Content>
-                    <StackPanel>
-                        <TextBlock></TextBlock>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*"></RowDefinition>
+                            <RowDefinition Height="6*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Margin="5"
+                                Grid.Row="0" 
+                                Width="200"
+                                HorizontalAlignment="Left"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                        CommandParameter="Car">Создать автомобиль</Button>
+
+
+                        <Grid Grid.Row="1" Background="LightPink">
+                            <ContentControl Content="{Binding CurrentFirstChildView}">
+
+                            </ContentControl>
+                        </Grid>
+
+                    </Grid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem>
+            <TabItem  Width="100">
                 <TabItem.Header>Роли</TabItem.Header>
                 <TabItem.Content>
                     <Grid>
@@ -53,8 +70,10 @@
                             <RowDefinition Height="0.5*"></RowDefinition>
                             <RowDefinition Height="6*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="0" Margin="0 5"
-                        Width="200"
+                        <Button Margin="5"
+                                Grid.Row="0" 
+                                Width="200"
+                                HorizontalAlignment="Left"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
                         CommandParameter="Role">Создать роль</Button>
 
@@ -68,15 +87,36 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem>
+            <TabItem  Width="100">
                 <TabItem.Header>Статус заказа</TabItem.Header>
                 <TabItem.Content>
-                    <StackPanel>
-                        <TextBlock></TextBlock>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*"></RowDefinition>
+                            <RowDefinition Height="6*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Margin="5"
+                                Grid.Row="0" 
+                                Width="200"
+                                HorizontalAlignment="Left"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                        CommandParameter="Status">Создать статус</Button>
+
+
+                        <Grid Grid.Row="1" Background="LightPink">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="93*"/>
+                                <ColumnDefinition Width="106*"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentControl Content="{Binding CurrentFirstChildView}" Grid.ColumnSpan="2" Margin="0,0,0.4,-0.2">
+
+                            </ContentControl>
+                        </Grid>
+
+                    </Grid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem>
+            <TabItem  Width="100">
                 <TabItem.Header>Топливо</TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
@@ -86,6 +126,6 @@
             </TabItem>
         </TabControl>
 
-        
+
     </Grid>
 </UserControl>

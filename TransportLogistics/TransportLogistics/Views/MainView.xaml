@@ -60,12 +60,7 @@
                     
                 </MenuItem>
             </Menu>
-            <ComboBox Width="170"
-                      Height="30"
-                      Margin="10 0 0 0 "
-                      BorderBrush="Gray"
-                      ItemsSource="{Binding Roles}"
-                      SelectedValue="{Binding SelectedRole}"></ComboBox>
+          
         </StackPanel>
         <Grid Grid.Row="1"
               Background="LightPink">

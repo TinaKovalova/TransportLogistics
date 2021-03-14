@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TransportLogistics.Views.UserControls.ChildrenUserControls.RoleView"
+﻿<UserControl x:Class="TransportLogistics.Views.UserControls.ChildrenUserControls.StatusView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TransportLogistics.Views.UserControls.ChildrenUserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-              DataContext="{StaticResource vmlocator}">
+               DataContext="{StaticResource vmlocator}">
     <Grid DataContext="{Binding MainViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.6*"></ColumnDefinition>
@@ -15,31 +15,32 @@
         <StackPanel Grid.Column="1" Margin="5">
             <Label Margin="100 0">Редактировние</Label>
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Width="80">Роль:</Label>
+                <Label Width="80">Статус:</Label>
                 <TextBox Width="180"
-                         Text="{Binding SelectedRole.RoleName}"></TextBox>
+                         Text="{Binding SelectedOrderStatus.StatusName}"></TextBox>
             </StackPanel>
-           
+
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="030">
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
-                        CommandParameter="save role">Сохранить</Button> 
+                        CommandParameter="save status">Сохранить</Button>
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
-                        CommandParameter="cansel role">Отмена</Button>
-                
+                        CommandParameter="cansel status">Отмена</Button>
+
             </StackPanel>
-           
+
 
 
 
         </StackPanel>
         <ScrollViewer>
-            <ListView ItemsSource="{Binding Roles}"
-                      SelectedItem="{Binding SelectedRole}">
-               
+            <ListView ItemsSource="{Binding OrderStatuses}"
+                      SelectedItem="{Binding SelectedOrderStatus}"
+                      >
+
             </ListView>
         </ScrollViewer>
 
