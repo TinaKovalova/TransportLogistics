@@ -20,7 +20,9 @@ namespace BLL.Services
             this.repository = repository;
             this.unitOfWork = unitOfWork;
             var config = new MapperConfiguration(cfg =>
-                            cfg.CreateMap<User, UserDTO>().ReverseMap());
+                            cfg.CreateMap<User, UserDTO>()
+                            .ForMember("RoleName",role=>role.MapFrom(x=>x.Role.RoleName))
+                            .ReverseMap());
             mapper = new Mapper(config);
 
         }

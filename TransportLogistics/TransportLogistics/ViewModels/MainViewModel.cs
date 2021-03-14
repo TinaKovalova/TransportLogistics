@@ -23,9 +23,10 @@ namespace TransportLogistics.ViewModels
         private UserControl currentLastChildView;
 
         private TabItem selectedTabItem;
-        private ObservableCollection<string> roles;
+        private ObservableCollection<RoleDTO> roles;
         private ObservableCollection<UserDTO> users;
         private UserDTO selectedUser;
+        private RoleDTO selectedRole;
        
        
         
@@ -50,13 +51,15 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
+        // Создается главное представление на TabItem -----------------------------------------
         public TabItem SelectedTabItem
         {
             get => selectedTabItem;
             set
             {
                 selectedTabItem = value;
-                var param = selectedTabItem.Header;
+                var param = selectedTabItem.Header.ToString();
+              
                 switch (param)
                 {
                     case "Пользователи":
@@ -66,22 +69,22 @@ namespace TransportLogistics.ViewModels
                         }
                     case "Автомобили":
                         {
-                           // CurrentView = new OrderView();
+                           CurrentFirstChildView = new CarView();
                             break;
                         }
                     case "Роли":
                         {
-                            //CurrentView = new AccountView();
+                           CurrentFirstChildView = new RoleView();
                             break;
                         }
                     case "Статус заказа":
                         {
-                            //CurrentView = new AccountView();
+                            CurrentFirstChildView = new OrderStatusView();
                             break;
                         }
                     case "Топливо":
                         {
-                            //CurrentView = new AccountView();
+                            //CurrentFirstChildView = new AccountView();
                             break;
                         }
                 }
@@ -98,7 +101,14 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
-        public string SelectedRole { get; set; }
+        public RoleDTO SelectedRole {
+            get => selectedRole;
+            set
+            {
+                selectedRole = value;
+                Notify();
+            }
+        }
        
         public UserDTO SelectedUser
         {
@@ -111,7 +121,7 @@ namespace TransportLogistics.ViewModels
             }
         }
        
-        public ObservableCollection<string> Roles
+        public ObservableCollection<RoleDTO> Roles
         {
             get => roles;
             set
@@ -150,7 +160,7 @@ namespace TransportLogistics.ViewModels
            
           
             // InitCollection();
-            Roles = new ObservableCollection<string>(rolesService.GetAll().Select(x => x.ToString()));
+            Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
             Users = new ObservableCollection<UserDTO>(usersService.GetAll().ToList());
             InitCommands();
           
@@ -183,17 +193,15 @@ namespace TransportLogistics.ViewModels
             });
             CreateCommand = new RelayCommand(obj =>
              {
-                 UserDTO d = SelectedUser;
+                 
                  var param = obj as String;
                  switch (param)
                  {
                      case "CreateUser":
                          {
                             SelectedUser = new UserDTO();
-                             CurrentFirstChildView =new CreateUserView();
-                            // usersService.CreateOrUpdate(SelectedUser);
-
-                            
+                            CurrentFirstChildView =new CreateUserView();
+                                                    
                              break;
                          }
                      case "EditUser":
@@ -203,9 +211,10 @@ namespace TransportLogistics.ViewModels
                              // CurrentFirstChildView = new CreateUserView();
                              break;
                          }
-                     case "2":
+                     case "Role":
                          {
-                             //CurrentView = new AccountView();
+                             SelectedRole = new RoleDTO();
+                             CurrentFirstChildView = new CreateRoleView();
                              break;
                          }
                  }
@@ -214,9 +223,41 @@ namespace TransportLogistics.ViewModels
             SaveOrCancelCommand = new RelayCommand(obj =>
              {
                  var param = obj as String;
-                 if (param == "save")
+                 if (param.StartsWith ("save"))
                  {
-                     usersService.CreateOrUpdate(SelectedUser);
+                     string key = param.Split(' ')[1];
+
+                     switch (key)
+                     {
+                         case "user":
+                             {
+                                 usersService.CreateOrUpdate(SelectedUser);
+                                 Users = new ObservableCollection<UserDTO>(usersService.GetAll());
+                                 break;
+                             }
+                         case "car":
+                             {
+                                 CurrentFirstChildView = new CarView();
+                                 break;
+                             }
+                         case "role":
+                             {
+                                 rolesService.CreateOrUpdate(SelectedRole);
+                                 Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
+                                 break;
+                             }
+                         case "status":
+                             {
+                                 CurrentFirstChildView = new OrderStatusView();
+                                 break;
+                             }
+                         case "Топливо":
+                             {
+                                 //CurrentFirstChildView = new AccountView();
+                                 break;
+                             }
+                     }
+                     
                  }
                  else if (param == "cancel")
                  {

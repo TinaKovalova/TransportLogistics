@@ -17,7 +17,7 @@ namespace BLL.DTO
 
         public string UserDrivingLecense { get; set; }
 
-        public int? UserRole { get; set; }
-
+        public int? RoleId { get; set; }
+        public string RoleName { get; set; }
     }
 }

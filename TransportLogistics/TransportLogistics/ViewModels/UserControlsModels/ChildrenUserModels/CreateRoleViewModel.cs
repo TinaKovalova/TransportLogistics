@@ -2,7 +2,6 @@
 using BLL.Services;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +11,9 @@ using TransportLogistics.Infrastructure;
 
 namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
 {
-     public class CreateUserModel: BaseNotifyPropertyChanged
+    public class CreateRoleViewModel: BaseNotifyPropertyChanged
     {
-        IService<UserDTO> usersService;
         IService<RoleDTO> rolesService;
-        UserDTO user;
         RoleDTO selectedRoleDTO;
         public RoleDTO SelectedRoleDTO
         {
@@ -26,37 +23,15 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 selectedRoleDTO = value;
                 Notify();
             }
-        }
-        ObservableCollection<RoleDTO> roles;
-        public UserDTO User
-        {
 
-            get => user;
-            set
-            {
-                user = value;
-                Notify();
-            }
-
-        }
-        public ObservableCollection<RoleDTO> Roles
-        {
-            get => roles;
-            set
-            {
-                roles = value;
-                Notify();
-            }
         }
         public ICommand SaveOrCancelCommand { get; set; }
-
-        public CreateUserModel(IService<UserDTO> usersService, IService<RoleDTO> rolesService)
+        public CreateRoleViewModel(IService<RoleDTO> rolesService)
         {
-            this.usersService = usersService;
             this.rolesService = rolesService;
-            roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
-            User = new UserDTO();
+            selectedRoleDTO = new RoleDTO();
             InitCommand();
+
         }
         private void InitCommand()
         {
@@ -67,21 +42,21 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 {
                     try
                     {
-                        usersService.CreateOrUpdate(User);
-                        MessageBox.Show("Пользователь создан");
-                        User = new UserDTO();
+                        rolesService.CreateOrUpdate(SelectedRoleDTO);
+                        MessageBox.Show("Роль создана");
+                        SelectedRoleDTO = new RoleDTO();
 
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-                  
+
 
                 }
                 else if (param == "cancel")
                 {
-                    User = null;
+                    SelectedRoleDTO = null;
                 }
 
             });

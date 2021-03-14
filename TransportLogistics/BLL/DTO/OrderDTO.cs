@@ -13,5 +13,8 @@ namespace BLL.DTO
         public string FromWhere { get; set; }
         public string Where { get; set; }
         public string Note { get; set; }
+        public string StatusName { get; set; }
+
+        public string UserName { get; set; }
     }
 }

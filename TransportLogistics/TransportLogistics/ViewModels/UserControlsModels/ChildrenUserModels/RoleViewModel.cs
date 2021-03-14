@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
 {
-    public class UserViewModel
+    public class RoleViewModel
     {
-
     }
 }

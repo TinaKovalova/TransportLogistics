@@ -12,37 +12,45 @@
             <ColumnDefinition Width="1.6*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Margin="5" DataContext="{Binding SelectedUser}">
-            <Label>Редактировние</Label>
+        <StackPanel Grid.Column="1" Margin="5">
+            <Label Margin="100 0">Редактировние</Label>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Фамилия:</Label>
                 <TextBlock Width="180"
-                                             Text="{Binding UserLastName}"></TextBlock>
+                                             Text="{Binding SelectedUser.UserLastName}"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Имя:</Label>
                 <TextBox Width="180"
-                                             Text="{Binding UserFirstName}"></TextBox>
+                                             Text="{Binding SelectedUser.UserFirstName}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Отчество:</Label>
                 <TextBox Width="180"
-                                             Text="{Binding UserPatronymic}"></TextBox>
+                                             Text="{Binding SelectedUser.UserPatronymic}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Документ:</Label>
                 <TextBox Width="180"
-                         Text="{Binding UserDrivingLecense}"></TextBox>
+                         Text="{Binding SelectedUser.UserDrivingLecense}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Роль:</Label>
-                <TextBlock Width="180" Text="{Binding UserRole}"></TextBlock>
+                <ComboBox Width="180"
+                          ItemsSource="{Binding Roles}"
+                          SelectedItem="{Binding SelectedRole}"
+                          Text="{Binding SelectedUser.RoleName}"
+                         ></ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="030">
                 <Button Margin="5"
-                        Width="100">Сохранить</Button>
+                        Width="100"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
+                        CommandParameter="save user">Сохранить</Button>
                 <Button Margin="5"
-                        Width="100">Отмена</Button>
+                        Width="100"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
+                        CommandParameter="cancel user">Отмена</Button>
             </StackPanel>
     
 
@@ -50,12 +58,12 @@
         </StackPanel>
         <ScrollViewer>
             <ListView ItemsSource="{Binding Users}"
-                      SelectedItem="{Binding SelectedUser}" Width="500">
+                      SelectedItem="{Binding SelectedUser}">
                 <ListView.View>
                     <GridView Selector.IsSelected="False">
-                        <GridViewColumn DisplayMemberBinding="{Binding UserLastName}" Width="195">Фамилия</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding UserFirstName}" Width="195">Имя</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding UserPatronymic}" Width="195">Отчество</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding UserLastName}" Width="190">Фамилия</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding UserFirstName}" Width="190">Имя</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding UserPatronymic}" Width="190">Отчество</GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

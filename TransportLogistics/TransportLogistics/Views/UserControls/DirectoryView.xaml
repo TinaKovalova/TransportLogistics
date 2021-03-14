@@ -48,9 +48,24 @@
             <TabItem>
                 <TabItem.Header>Роли</TabItem.Header>
                 <TabItem.Content>
-                    <StackPanel>
-                        <TextBlock></TextBlock>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*"></RowDefinition>
+                            <RowDefinition Height="6*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" Margin="0 5"
+                        Width="200"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                        CommandParameter="Role">Создать роль</Button>
+
+
+                        <Grid Grid.Row="1" Background="LightPink">
+                            <ContentControl Content="{Binding CurrentFirstChildView}">
+
+                            </ContentControl>
+                        </Grid>
+
+                    </Grid>
                 </TabItem.Content>
             </TabItem>
             <TabItem>
