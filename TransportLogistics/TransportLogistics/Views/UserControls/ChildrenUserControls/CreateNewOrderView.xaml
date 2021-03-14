@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="TransportLogistics.Views.UserControls.ChildrenUserControls.CreateNewOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TransportLogistics.Views.UserControls.ChildrenUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{StaticResource vmlocator}">
+    <Grid DataContext="{Binding CreateNewOrderModel}"
+          Background="AliceBlue">
+        <StackPanel Margin="20">
+            <StackPanel Orientation="Horizontal">
+                
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Width="80">Дата:</Label>
+                   
+                    <DatePicker SelectedDate="{Binding SelectedOrder.Date}"
+                              DisplayDateStart="03/14/2021"></DatePicker>
+
+                   
+                </StackPanel>
+               
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Width="100">Ответственный:</Label>
+                    <ComboBox Width="200"
+                          ItemsSource="{Binding Users}"
+                          SelectedItem="{Binding SelectedOrder.User}"
+                          Text="{Binding SelectedOrder.User}"
+                         ></ComboBox>
+                  
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Width="80">Откуда:</Label>
+                    <TextBox Width="220"
+                           Text="{Binding SelectedUser.UserLastName}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Width="80">Куда:</Label>
+                    <TextBox Width="220"
+                         Text="{Binding SelectedUser.UserFirstName}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Width="80">Примечание:</Label>
+                    <TextBox Width="400"
+                         Text="{Binding SelectedUser.UserPatronymic}"></TextBox>
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button Margin="5"
+                        Width="100"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
+                        CommandParameter="save">Сохранить</Button>
+                <Button Margin="5"
+                        Width="100"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
+                        CommandParameter="cancel">Отмена</Button>
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

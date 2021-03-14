@@ -73,9 +73,11 @@
     <Compile Include="ViewModels\UserControlsModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CarViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateCarViewModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateNewOrderModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateRoleViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateStatusViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\CreateUserModel.cs" />
+    <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\OrderListViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\StatusViewModel.cs" />
     <Compile Include="ViewModels\UserControlsModels\ChildrenUserModels\UserViewModel.cs" />
@@ -90,6 +92,9 @@
     <Compile Include="Views\UserControls\ChildrenUserControls\CreateCarView.xaml.cs">
       <DependentUpon>CreateCarView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\ChildrenUserControls\CreateNewOrderView.xaml.cs">
+      <DependentUpon>CreateNewOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\ChildrenUserControls\CreateRoleView.xaml.cs">
       <DependentUpon>CreateRoleView.xaml</DependentUpon>
     </Compile>
@@ -98,6 +103,9 @@
     </Compile>
     <Compile Include="Views\UserControls\ChildrenUserControls\CreateUserView.xaml.cs">
       <DependentUpon>CreateUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ChildrenUserControls\OrderListView.xaml.cs">
+      <DependentUpon>OrderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ChildrenUserControls\RoleView.xaml.cs">
       <DependentUpon>RoleView.xaml</DependentUpon>
@@ -141,6 +149,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\ChildrenUserControls\CreateNewOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\ChildrenUserControls\CreateRoleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\ChildrenUserControls\CreateUserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ChildrenUserControls\OrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -21,8 +21,8 @@ namespace BLL.Services
             this.unitOfWork = unitOfWork;
             var config = new MapperConfiguration(cfg =>
                             cfg.CreateMap<Order, OrderDTO>()
-                            .ForMember("StatusName", status => status.MapFrom(x=>x.OrderStatus.StatusName))
-                            .ForMember("UserName",user=>user.MapFrom(n=>n.User.UserLastName))
+                            .ForMember("OrderStatus", status => status.MapFrom(x=>x.OrderStatus))
+                            //.ForMember("User", user=>user.MapFrom(n=>n.User))
                             .ReverseMap());
             mapper = new Mapper(config);
 

@@ -25,10 +25,12 @@ namespace TransportLogistics.ViewModels
         private ObservableCollection<UserDTO> users;
         private ObservableCollection<OrderStatusDTO> orderStatuses;
         private ObservableCollection<CarDTO> cars;
+        private ObservableCollection<OrderDTO> orders;
         private UserDTO selectedUser;
         private RoleDTO selectedRole;
         private OrderStatusDTO  selectedOrderStatus;
         private CarDTO selectedCar;
+        private OrderDTO selectedOrder;
 
 
 
@@ -36,6 +38,7 @@ namespace TransportLogistics.ViewModels
         private IService<UserDTO> usersService;
         private IService<OrderStatusDTO> orderStatusService;
         private IService<CarDTO> carService;
+        private IService<OrderDTO> orderService;
         public UserControl CurrentFirstChildView
         {
             get => currentFirstChildView;
@@ -134,6 +137,15 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
+        public OrderDTO SelectedOrder
+        {
+            get => selectedOrder;
+            set
+            {
+                selectedOrder = value;
+                Notify();
+            }
+        }
         public OrderStatusDTO SelectedOrderStatus
         {
             get => selectedOrderStatus;
@@ -190,6 +202,15 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
+        public ObservableCollection<OrderDTO> Orders
+        {
+            get => orders;
+            set
+            {
+                orders = value;
+                Notify();
+            }
+        }
 
 
         #endregion
@@ -204,13 +225,14 @@ namespace TransportLogistics.ViewModels
 
         #endregion
 
-        public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService, IService<OrderStatusDTO> orderStatusService, IService<CarDTO> carService)
+        public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService, IService<OrderStatusDTO> orderStatusService, IService<CarDTO> carService, IService<OrderDTO> orderService)
         {
             
             this.rolesService = rolesService;
             this.usersService = usersService;
             this.orderStatusService = orderStatusService;
             this.carService = carService;
+            this.orderService = orderService;
            
           
             // InitCollection();
@@ -277,6 +299,18 @@ namespace TransportLogistics.ViewModels
                          {
                              SelectedOrderStatus = new OrderStatusDTO();
                              CurrentFirstChildView = new CreateStatusView();
+                             break;
+                         }
+                     case "OrderList":
+                         {
+                             //SelectedOrderStatus = new OrderStatusDTO();
+                             CurrentFirstChildView = new OrderListView();
+                             break;
+                         }
+                     case "Order":
+                         {
+                             //SelectedOrder = new OrderDTO();
+                             CurrentFirstChildView = new CreateNewOrderView();
                              break;
                          }
                  }

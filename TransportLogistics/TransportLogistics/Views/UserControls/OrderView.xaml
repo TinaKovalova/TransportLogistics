@@ -8,38 +8,35 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{StaticResource vmlocator}">
     <Grid DataContext="{Binding MainViewModel}">
-        <ScrollViewer>
-            <ListView ItemsSource="{Binding Data}"
-                  SelectedItem="{Binding From}">
-                <ListView.View>
-                    <GridView Selector.IsSelected="False">
-                        <GridViewColumn DisplayMemberBinding="{Binding Data}"
-                                        Width="300">Дата</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding From}"
-                                         Width="100">Откуда</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding To}"
-                                         Width="100">Куда</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding From}"
-                                         Width="100">Примечание</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding From}"
-                                         Width="100">Ответственный</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding From}"
-                                         Width="100">Статус</GridViewColumn>
-                        <GridViewColumn Width="30">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Width="18"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType=Grid, AncestorLevel=2},
-                                                Path=DataContext.ChangeCountCommand}"
-                                            CommandParameter="-">Удалить</Button>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                       
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
+           
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="3"
+                                Grid.Row="0" 
+                                Width="200"
+                                HorizontalAlignment="Left"
+                                Command="{Binding CreateCommand}"
+                                CommandParameter="OrderList">График</Button>
+                <Button Margin="3"
+                                Grid.Row="0" 
+                                Width="200"
+                                HorizontalAlignment="Left"
+                                Command="{Binding CreateCommand}"
+                                CommandParameter="Order">Создать новый заказ</Button>
+            </StackPanel>
+
+        </StackPanel>
+
+        <Grid Grid.Row="1" Background="LightPink">
+            <ContentControl Content="{Binding CurrentFirstChildView}">
+
+            </ContentControl>
+        </Grid>
+       
 
 
     </Grid>
