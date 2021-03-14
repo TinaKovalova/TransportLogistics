@@ -20,7 +20,8 @@ namespace TransportLogistics.Infrastructure
         public AccountViewModel AccountViewModel => kernel.Get<AccountViewModel>();
         public OrderViewModel OrderViewModel => kernel.Get<OrderViewModel>();
         public UserViewModel UserViewModel => kernel.Get<UserViewModel>();
-        public CreateUserModel CreateUpdateUserModel => kernel.Get<CreateUserModel>();
+        public CreateUserModel CreateUserModel => kernel.Get<CreateUserModel>();
+        
 
     }
 }

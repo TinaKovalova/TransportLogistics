@@ -166,7 +166,7 @@ namespace TransportLogistics.ViewModels
                     case "DirectoryView":
                         {
                             CurrentView = new DirectoryView();
-                            CurrentFirstChildView = new CreateUserView();
+                           
                             break;
                         }
                     case "OrderView":
