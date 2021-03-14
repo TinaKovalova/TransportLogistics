@@ -13,9 +13,13 @@ namespace BLL.DTO
         public string FromWhere { get; set; }
         public string Where { get; set; }
         public string Note { get; set; }
-        public OrderStatusDTO OrderStatus { get; set; }
+        public int? StatusId { get; set; }
 
-       // public UserDTO User { get; set; }
+        public int? UserId { get; set; }
+
+        public OrderStatusDTO  OrderStatus { get; set; }
+
+        public UserDTO User { get; set; }
         
     }
 }

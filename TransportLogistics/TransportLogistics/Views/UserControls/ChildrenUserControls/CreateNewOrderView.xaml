@@ -15,8 +15,8 @@
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Дата:</Label>
                    
-                    <DatePicker SelectedDate="{Binding SelectedOrder.Date}"
-                              DisplayDateStart="03/14/2021"></DatePicker>
+                    <DatePicker DisplayDate="03/14/2021"
+                                SelectedDate="{Binding SelectedOrder.Date}"></DatePicker>
 
                    
                 </StackPanel>
@@ -25,29 +25,37 @@
                     <Label Width="100">Ответственный:</Label>
                     <ComboBox Width="200"
                           ItemsSource="{Binding Users}"
-                          SelectedItem="{Binding SelectedOrder.User}"
-                          Text="{Binding SelectedOrder.User}"
+                          SelectedItem="{Binding SelestedUser}"
+                          
                          ></ComboBox>
-                  
+                    <Label Width="100">Статус:</Label>
+                    <ComboBox Width="200"
+                          ItemsSource="{Binding Statuses}"
+                          SelectedItem="{Binding SelectedStatus}"
+                            
+                          
+                          
+                         ></ComboBox>
+
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Откуда:</Label>
                     <TextBox Width="220"
-                           Text="{Binding SelectedUser.UserLastName}"></TextBox>
+                           Text="{Binding SelectedOrder.FromWhere}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Куда:</Label>
                     <TextBox Width="220"
-                         Text="{Binding SelectedUser.UserFirstName}"></TextBox>
+                         Text="{Binding SelectedOrder.Where}"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Примечание:</Label>
                     <TextBox Width="400"
-                         Text="{Binding SelectedUser.UserPatronymic}"></TextBox>
+                         Text="{Binding SelectedOrder.Note}"></TextBox>
                 </StackPanel>
 
             </StackPanel>

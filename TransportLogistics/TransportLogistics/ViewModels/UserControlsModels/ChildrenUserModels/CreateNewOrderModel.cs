@@ -16,14 +16,27 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
     { 
         IService<OrderDTO> orderService;
         IService<UserDTO> userService;
+        IService<OrderStatusDTO> statusService;
         ObservableCollection<UserDTO> users;
+        ObservableCollection<OrderStatusDTO> statuses;
         OrderDTO selectedOrder;
+        OrderStatusDTO selectedStatus;
+        UserDTO selectedUser;
         public ObservableCollection<UserDTO> Users
         {
             get => users;
             set
             {
                 users = value;
+                Notify();
+            }
+        }
+        public ObservableCollection<OrderStatusDTO> Statuses
+        {
+            get => statuses;
+            set
+            {
+                statuses = value;
                 Notify();
             }
         }
@@ -37,15 +50,39 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             }
 
         }
+        public OrderStatusDTO SelectedStatus
+        {
+            get => selectedStatus;
+            set
+            {
+                selectedStatus = value;
+                Notify();
+            }
+
+        }
+        public UserDTO SelestedUser
+        {
+            get => selectedUser;
+            set
+            {
+                selectedUser = value;
+                Notify();
+            }
+
+        }
+
         public ICommand SaveOrCancelCommand { get; set; }
-        public CreateNewOrderModel(IService<OrderDTO> orderService, IService<UserDTO> userService)
+        public CreateNewOrderModel(IService<OrderDTO> orderService, IService<UserDTO> userService, IService<OrderStatusDTO> statusService)
         {
             this.orderService = orderService;
             this.userService = userService;
+            this.statusService = statusService;
             SelectedOrder = new OrderDTO();
-           // SelectedOrder.OrderStatus.StatusName = "новый";
+           // SelectedOrder.OrderStatus = "новый";
+            SelectedOrder.Date = DateTime.Now;
 
             Users = new ObservableCollection<UserDTO>(userService.GetAll());
+            Statuses = new ObservableCollection<OrderStatusDTO>(statusService.GetAll());
             InitCommand();
 
         }
@@ -56,18 +93,15 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 var param = obj as String;
                 if (param == "save")
                 {
-                    try
-                    {
-                       
-                        orderService.CreateOrUpdate(SelectedOrder);
-                        MessageBox.Show("Роль создана");
-                        SelectedOrder = new OrderDTO();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    /////////////////////
+                    SelectedOrder.User = selectedUser;
+                    SelectedOrder.OrderStatus = SelectedStatus;
+                    SelectedOrder.StatusId = selectedStatus.StatusId;
+                    SelectedOrder.UserId = selectedOrder.User.UserId;
+                    //////////////////////
+                    orderService.CreateOrUpdate(SelectedOrder);
+                    MessageBox.Show("Роль создана");
+                    SelectedOrder = new OrderDTO();
 
 
                 }

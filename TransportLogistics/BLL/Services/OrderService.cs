@@ -20,10 +20,7 @@ namespace BLL.Services
             this.repository = repository;
             this.unitOfWork = unitOfWork;
             var config = new MapperConfiguration(cfg =>
-                            cfg.CreateMap<Order, OrderDTO>()
-                            .ForMember("OrderStatus", status => status.MapFrom(x=>x.OrderStatus))
-                            //.ForMember("User", user=>user.MapFrom(n=>n.User))
-                            .ReverseMap());
+                            cfg.CreateMap<Order, OrderDTO>().ReverseMap());
             mapper = new Mapper(config);
 
 

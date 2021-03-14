@@ -10,11 +10,8 @@ namespace BLL.DTO
     {
         public int UserId { get; set; }
         public string UserLastName { get; set; }
-
         public string UserFirstName { get; set; }
-
         public string UserPatronymic { get; set; }
-
         public string UserDrivingLecense { get; set; }
 
         public int? RoleId { get; set; }
