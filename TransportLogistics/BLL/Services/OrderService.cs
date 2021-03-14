@@ -20,7 +20,11 @@ namespace BLL.Services
             this.repository = repository;
             this.unitOfWork = unitOfWork;
             var config = new MapperConfiguration(cfg =>
-                            cfg.CreateMap<Order, OrderDTO>().ReverseMap());
+                            cfg.CreateMap<Order, OrderDTO>()
+                            .ForMember("OrderStatus", st => st.MapFrom(x => x.OrderStatus.StatusName))
+                            .ForMember("User", us => us.MapFrom(u => u.User))
+                            .ForMember("Date",date=>date.MapFrom(d=>$"{d.Date.Year}-{d.Date.Month}-{d.Date.Day}"))
+                            .ReverseMap());
             mapper = new Mapper(config);
 
 

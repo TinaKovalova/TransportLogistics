@@ -9,16 +9,11 @@ namespace BLL.DTO
     public class OrderDTO
     {
         public int OrderId { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string FromWhere { get; set; }
         public string Where { get; set; }
         public string Note { get; set; }
-        public int? StatusId { get; set; }
-
-        public int? UserId { get; set; }
-
-        public OrderStatusDTO  OrderStatus { get; set; }
-
+        public string  OrderStatus { get; set; }
         public UserDTO User { get; set; }
         
     }

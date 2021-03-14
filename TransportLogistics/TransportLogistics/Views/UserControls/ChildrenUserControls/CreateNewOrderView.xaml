@@ -16,7 +16,7 @@
                     <Label Width="80">Дата:</Label>
                    
                     <DatePicker DisplayDate="03/14/2021"
-                                SelectedDate="{Binding SelectedOrder.Date}"></DatePicker>
+                                SelectedDate="{Binding CurrentDate}"></DatePicker>
 
                    
                 </StackPanel>
@@ -25,17 +25,13 @@
                     <Label Width="100">Ответственный:</Label>
                     <ComboBox Width="200"
                           ItemsSource="{Binding Users}"
-                          SelectedItem="{Binding SelestedUser}"
-                          
+                          SelectedItem="{Binding SelectedOrder.User}"
                          ></ComboBox>
                     <Label Width="100">Статус:</Label>
                     <ComboBox Width="200"
                           ItemsSource="{Binding Statuses}"
                           SelectedItem="{Binding SelectedStatus}"
-                            
-                          
-                          
-                         ></ComboBox>
+                              Text="{Binding SelectedOrder.OrderStatus}"></ComboBox>
 
                 </StackPanel>
             </StackPanel>

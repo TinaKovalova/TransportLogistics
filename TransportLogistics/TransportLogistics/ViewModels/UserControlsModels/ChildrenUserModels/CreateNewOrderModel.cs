@@ -22,6 +22,7 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
         OrderDTO selectedOrder;
         OrderStatusDTO selectedStatus;
         UserDTO selectedUser;
+        DateTime currentDate;
         public ObservableCollection<UserDTO> Users
         {
             get => users;
@@ -70,7 +71,16 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             }
 
         }
+        public DateTime CurrentDate
+        {
+            get => currentDate;
+            set
+            {
+                currentDate = value;
+                Notify();
+            }
 
+        }
         public ICommand SaveOrCancelCommand { get; set; }
         public CreateNewOrderModel(IService<OrderDTO> orderService, IService<UserDTO> userService, IService<OrderStatusDTO> statusService)
         {
@@ -78,8 +88,8 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             this.userService = userService;
             this.statusService = statusService;
             SelectedOrder = new OrderDTO();
-           // SelectedOrder.OrderStatus = "новый";
-            SelectedOrder.Date = DateTime.Now;
+            // SelectedOrder.OrderStatus = "новый";
+            CurrentDate = DateTime.Now;
 
             Users = new ObservableCollection<UserDTO>(userService.GetAll());
             Statuses = new ObservableCollection<OrderStatusDTO>(statusService.GetAll());
@@ -93,14 +103,16 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 var param = obj as String;
                 if (param == "save")
                 {
-                    /////////////////////
+                    /*
                     SelectedOrder.User = selectedUser;
                     SelectedOrder.OrderStatus = SelectedStatus;
                     SelectedOrder.StatusId = selectedStatus.StatusId;
                     SelectedOrder.UserId = selectedOrder.User.UserId;
-                    //////////////////////
+                  */
+                   
+                    SelectedOrder.Date = $"{CurrentDate.Year}-{CurrentDate.Month}-{CurrentDate.Day}";
                     orderService.CreateOrUpdate(SelectedOrder);
-                    MessageBox.Show("Роль создана");
+                    MessageBox.Show("Заказ создана");
                     SelectedOrder = new OrderDTO();
 
 
