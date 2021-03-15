@@ -15,8 +15,7 @@
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Дата:</Label>
                    
-                    <DatePicker DisplayDate="03/14/2021"
-                                SelectedDate="{Binding CurrentDate}"></DatePicker>
+                    <DatePicker SelectedDate="{Binding CurrentOrder.Date}"></DatePicker>
 
                    
                 </StackPanel>
@@ -25,13 +24,11 @@
                     <Label Width="100">Ответственный:</Label>
                     <ComboBox Width="200"
                           ItemsSource="{Binding Users}"
-                          SelectedItem="{Binding SelectedOrder.User}"
-                         ></ComboBox>
+                          SelectedItem="{Binding CurrentOrder.OrderUser}"></ComboBox>
                     <Label Width="100">Статус:</Label>
                     <ComboBox Width="200"
                           ItemsSource="{Binding Statuses}"
-                          SelectedItem="{Binding SelectedStatus}"
-                              Text="{Binding SelectedOrder.OrderStatus}"></ComboBox>
+                          SelectedItem="{Binding CurrentOrder.Status}"></ComboBox>
 
                 </StackPanel>
             </StackPanel>
@@ -39,19 +36,19 @@
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Откуда:</Label>
                     <TextBox Width="220"
-                           Text="{Binding SelectedOrder.FromWhere}"></TextBox>
+                           Text="{Binding CurrentOrder.FromWhere}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Куда:</Label>
                     <TextBox Width="220"
-                         Text="{Binding SelectedOrder.Where}"></TextBox>
+                         Text="{Binding CurrentOrder.Where}"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Примечание:</Label>
                     <TextBox Width="400"
-                         Text="{Binding SelectedOrder.Note}"></TextBox>
+                         Text="{Binding CurrentOrder.Note}"></TextBox>
                 </StackPanel>
 
             </StackPanel>

@@ -1,6 +1,7 @@
 ﻿using BLL.DTO;
 using BLL.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -18,7 +19,7 @@ namespace TransportLogistics.ViewModels
         private UserControl currentView;
         private UserControl currentFirstChildView;
         private UserControl currentLastChildView;
-        //private UserControl prevView;
+        
 
         private TabItem selectedTabItem;
         private ObservableCollection<RoleDTO> roles;
@@ -39,6 +40,7 @@ namespace TransportLogistics.ViewModels
         private IService<OrderStatusDTO> orderStatusService;
         private IService<CarDTO> carService;
         private IService<OrderDTO> orderService;
+
         public UserControl CurrentFirstChildView
         {
             get => currentFirstChildView;
@@ -143,6 +145,9 @@ namespace TransportLogistics.ViewModels
             set
             {
                 selectedOrder = value;
+               // selectedOrder.StatusId = value.Status?.StatusId;
+               // selectedOrder.UserId = value.OrderUser?.UserId;
+
                 Notify();
             }
         }
@@ -225,7 +230,8 @@ namespace TransportLogistics.ViewModels
 
         #endregion
 
-        public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService, IService<OrderStatusDTO> orderStatusService, IService<CarDTO> carService, IService<OrderDTO> orderService)
+        public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService, IService<OrderStatusDTO> orderStatusService, 
+                                IService<CarDTO> carService, IService<OrderDTO> orderService)
         {
             
             this.rolesService = rolesService;
@@ -240,7 +246,19 @@ namespace TransportLogistics.ViewModels
             Users = new ObservableCollection<UserDTO>(usersService.GetAll().ToList());
             OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
             Cars = new ObservableCollection<CarDTO>(carService.GetAll());
+            Orders = new ObservableCollection<OrderDTO>(orderService.GetAll());
+
+            foreach(var i in Orders)
+            {
+                if (i.StatusId.HasValue)
+                {
+                    i.Status = orderStatusService.Get((int)(i.StatusId));
+                    i.OrderUser = usersService.Get((int)(i.UserId));
+                }
+            }
+           
             InitCommands();
+            
           
         }
 

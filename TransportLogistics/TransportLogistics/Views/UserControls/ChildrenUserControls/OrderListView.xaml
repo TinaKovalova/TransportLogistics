@@ -13,54 +13,48 @@
             <RowDefinition Height="3*"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0">
+        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden">
             <ListView ItemsSource="{Binding Orders}"
-                  SelectedItem="{Binding SelectedOrder}">
+                      SelectedItem="{Binding SelectedOrder}">
                 <ListView.View>
-                    <GridView Selector.IsSelected="False">
+                    <GridView Selector.IsSelected="False" >
                         <GridViewColumn DisplayMemberBinding="{Binding Date}"
-                                        Width="100">Дата</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding OrderStatus}"
-                                         Width="120">Статус</GridViewColumn>
+                                        Width="70">Дата</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Status.StatusName}"
+                                        Width="120">Статус </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding FromWhere}"
-                                         Width="150">Откуда</GridViewColumn>
+                                         Width="180">Откуда</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Where}"
-                                         Width="150">Куда</GridViewColumn>
+                                         Width="180">Куда</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Note}"
-                                         Width="120">Примечание</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding UserLastName}"
+                                         Width="150">Примечание</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding OrderUser.UserLastName}"
                                          Width="120">Ответственный</GridViewColumn>
-                        <GridViewColumn Width="30">
-                           
-                        </GridViewColumn>
+                        
 
                     </GridView>
                 </ListView.View>
             </ListView>
         </ScrollViewer>
-        <StackPanel Grid.Row="1" Margin="5" Background="AliceBlue">
+        <StackPanel Grid.Row="1" Margin="3" Background="AliceBlue">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Дата:</Label>
-                    <DatePicker SelectedDate="{Binding SelectedOrder.Date}"
-                                SelectedDateFormat="Short"></DatePicker>
+                    <DatePicker SelectedDate="{Binding SelectedOrder.Date}"></DatePicker>
                    
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="100">Статус заказа:</Label>
-                    <ComboBox Width="180"
-                          ItemsSource="{Binding OrderStatuses}"
-                          SelectedItem="{Binding SelectedOrderStatus}"
-                          Text="{Binding SelectedOrder.OrderStatus}"
-                         ></ComboBox>
+                    <ComboBox Width="150"
+                              ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Grid,AncestorLevel=2,Mode=FindAncestor},Path=DataContext.OrderStatuses}"
+                              SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=Grid,AncestorLevel=2,Mode=FindAncestor},Path=DataContext.SelectedOrder.Status}"
+                              Text="{Binding RelativeSource={RelativeSource AncestorType=Grid,AncestorLevel=2,Mode=FindAncestor},Path=DataContext.SelectedOrder.Status}"></ComboBox>
+                   
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="100">Ответственный:</Label>
-                    <ComboBox Width="180"
-                          ItemsSource="{Binding Users}"
-                          SelectedItem="{Binding SelectedUser}"
-                          Text="{Binding SelectedOrder.User.UserLastName}"
-                         ></ComboBox>
+                    <TextBlock Width="180" Margin="2" TextAlignment="Justify"
+                               Text="{Binding SelectedOrder.OrderUser.UserLastName}"></TextBlock>
                    
                 </StackPanel>
             </StackPanel>
@@ -84,7 +78,7 @@
                 </StackPanel>
                
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"

@@ -26,10 +26,10 @@ namespace BLL.Services
         }
         public RoleDTO CreateOrUpdate(RoleDTO entity)
         {
-            var user = mapper.Map<Role>(entity);
-            repository.CreateOrUpdate(user);
+            var role = mapper.Map<Role>(entity);
+            repository.CreateOrUpdate(role);
             unitOfWork.Save();
-            return mapper.Map<RoleDTO>(user);
+            return mapper.Map<RoleDTO>(role);
         }
         public RoleDTO Get(int id) => mapper.Map<RoleDTO>(repository.Get(id));
         public IEnumerable<RoleDTO> GetAll() =>
