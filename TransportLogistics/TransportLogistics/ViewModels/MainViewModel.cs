@@ -32,6 +32,9 @@ namespace TransportLogistics.ViewModels
         private OrderStatusDTO  selectedOrderStatus;
         private CarDTO selectedCar;
         private OrderDTO selectedOrder;
+        private DateTime sortDate=DateTime.Now;
+        private string findString;
+       
 
 
 
@@ -171,6 +174,24 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
+        public DateTime SortDate
+        {
+            get => sortDate;
+            set
+            {
+                sortDate = value;
+                Notify();
+            }
+        }
+        public string FindString
+        {
+            get => findString;
+            set
+            {
+                findString = value;
+                Notify();
+            }
+        }
         public ObservableCollection<RoleDTO> Roles
         {
             get => roles;
@@ -227,6 +248,7 @@ namespace TransportLogistics.ViewModels
         public ICommand CreateCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
         public ICommand SaveOrCancelCommand { get; set; }
+        public ICommand SortCommand { get; set; }
 
         #endregion
 
@@ -367,9 +389,20 @@ namespace TransportLogistics.ViewModels
                                  OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
                                  break;
                              }
-                         case "Топливо":
+                         case "order":
                              {
-                                 //CurrentFirstChildView = new AccountView();
+                                 orderService.CreateOrUpdate(SelectedOrder);
+                                 Orders = new ObservableCollection<OrderDTO>(orderService.GetAll());
+
+                                 foreach (var i in Orders)
+                                 {
+                                     if (i.StatusId.HasValue)
+                                     {
+                                         i.Status = orderStatusService.Get((int)(i.StatusId));
+                                         i.OrderUser = usersService.Get((int)(i.UserId));
+                                     }
+                                 }
+
                                  break;
                              }
                      }
@@ -410,11 +443,38 @@ namespace TransportLogistics.ViewModels
                         }
                 }
             },(obj)=>SelectedUser!=null);
+            SortCommand = new RelayCommand(obj =>
+             {
+                 var param = obj as String;
+                 if (param == "byDate")
+                 {
+                     
+                     var select =orderService.GetAll().Where(order=>order.Date==sortDate);
+                     Orders =new ObservableCollection<OrderDTO>(select);
+                 }
+                 else if (param == "byUser")
+                 {
+
+                     var select = Orders.Where(order => order.UserId == SelectedUser.UserId);
+                     Orders = new ObservableCollection<OrderDTO>(select);
+                 }
+                 else if(param== "byCar")
+                 {
+
+                 }
+                 else if (param == "find")
+                 {
+                     var select = Orders.Where(order => order.FromWhere.Contains(FindString) || order.Where.Contains(FindString)|| order.Note.Contains(FindString));
+                     Orders = new ObservableCollection<OrderDTO>(select);
+                 }
+
+             });
         }
 
 
-
+       
     }
+
     /*
   private async void InitCollection()
   {

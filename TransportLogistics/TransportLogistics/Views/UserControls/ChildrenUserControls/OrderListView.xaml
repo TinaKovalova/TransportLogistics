@@ -9,16 +9,53 @@
               DataContext="{StaticResource vmlocator}">
     <Grid  DataContext="{Binding MainViewModel}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden">
+
+        <StackPanel Orientation="Horizontal" Background="AliceBlue">
+            <StackPanel Orientation="Horizontal">
+                <Label>Отбор:</Label>
+                <DatePicker SelectedDate="{Binding SortDate}"></DatePicker>
+                <Button
+                 Command="{Binding SortCommand}"
+                CommandParameter="byDate">по дате</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Width="100"
+                             ItemsSource="{Binding Users}"
+                             SelectedItem="{Binding SelectedUser}"></ComboBox>
+                <Button
+                 Command="{Binding SortCommand}"
+                CommandParameter="byUser">инициатор</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Width="100"
+                             ItemsSource="{Binding Users}"
+                             SelectedItem="{Binding SelectedUser}"></ComboBox>
+                <Button
+                 Command="{Binding SortCommand}"
+                CommandParameter="byCar">авто</Button>
+            </StackPanel>
+            <Label>Поиск:</Label>
+            <TextBox Width="100"
+                     Text="{Binding FindString}"></TextBox>
+            <Button
+                Command="{Binding SortCommand}"
+                CommandParameter="find">поиск</Button>
+            <Button
+                Command="{Binding SortCommand}"
+                CommandParameter="clear">сброс параметров</Button>
+            
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden">
             <ListView ItemsSource="{Binding Orders}"
                       SelectedItem="{Binding SelectedOrder}">
                 <ListView.View>
                     <GridView Selector.IsSelected="False" >
-                        <GridViewColumn DisplayMemberBinding="{Binding Date}"
+                        <GridViewColumn DisplayMemberBinding="{Binding Date,StringFormat={}{0:dd.MM.yyyy}}"
                                         Width="70">Дата</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Status.StatusName}"
                                         Width="120">Статус </GridViewColumn>
@@ -36,7 +73,7 @@
                 </ListView.View>
             </ListView>
         </ScrollViewer>
-        <StackPanel Grid.Row="1" Margin="3" Background="AliceBlue">
+        <StackPanel Grid.Row="2" Margin="3" Background="AliceBlue">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Дата:</Label>
@@ -45,11 +82,12 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="100">Статус заказа:</Label>
-                    <ComboBox Width="150"
-                              ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Grid,AncestorLevel=2,Mode=FindAncestor},Path=DataContext.OrderStatuses}"
-                              SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=Grid,AncestorLevel=2,Mode=FindAncestor},Path=DataContext.SelectedOrder.Status}"
-                              Text="{Binding RelativeSource={RelativeSource AncestorType=Grid,AncestorLevel=2,Mode=FindAncestor},Path=DataContext.SelectedOrder.Status}"></ComboBox>
-                   
+                    <ComboBox Width="200"
+                              ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.OrderStatuses}"
+                              SelectedValue="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SelectedOrder.StatusId}"
+                              SelectedValuePath="StatusId"
+                             ></ComboBox>
+
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="100">Ответственный:</Label>
@@ -74,7 +112,7 @@
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Примечание:</Label>
                     <TextBox Width="400"
-                         Text="{Binding SelectedOrder.Note}"></TextBox>
+                         Text="{Binding SelectedOrder.Note, Mode=OneWay}"></TextBox>
                 </StackPanel>
                
             </StackPanel>

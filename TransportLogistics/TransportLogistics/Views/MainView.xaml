@@ -63,7 +63,7 @@
           
         </StackPanel>
         <Grid Grid.Row="1"
-              Background="LightPink">
+              Background="CadetBlue">
            
            
             <ContentControl Grid.Column="1" Content="{Binding CurrentView}">

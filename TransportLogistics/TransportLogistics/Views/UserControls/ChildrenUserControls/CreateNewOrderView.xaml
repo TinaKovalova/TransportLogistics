@@ -26,10 +26,8 @@
                           ItemsSource="{Binding Users}"
                           SelectedItem="{Binding CurrentOrder.OrderUser}"></ComboBox>
                     <Label Width="100">Статус:</Label>
-                    <ComboBox Width="200"
-                          ItemsSource="{Binding Statuses}"
-                          SelectedItem="{Binding CurrentOrder.Status}"></ComboBox>
-
+                  
+                    <TextBlock Width="150" Text="{Binding CurrentOrder.Status.StatusName}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">

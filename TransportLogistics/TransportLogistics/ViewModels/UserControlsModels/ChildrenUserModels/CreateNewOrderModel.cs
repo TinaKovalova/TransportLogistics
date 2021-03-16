@@ -20,6 +20,7 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
         ObservableCollection<UserDTO> users;
         ObservableCollection<OrderStatusDTO> statuses;
         OrderDTO currentOrder;
+        OrderStatusDTO currentStatus;
         public ObservableCollection<UserDTO> Users
         {
             get => users;
@@ -48,16 +49,30 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             }
 
         }
-        
+        public OrderStatusDTO CurrentStatus
+        {
+            get => currentStatus;
+            set
+            {
+                currentStatus = value;
+                Notify();
+            }
+
+        }
+
         public ICommand SaveOrCancelCommand { get; set; }
         public CreateNewOrderModel(IService<OrderDTO> orderService, IService<UserDTO> userService, IService<OrderStatusDTO> statusService)
         {
             this.orderService = orderService;
             this.userService = userService;
             this.statusService = statusService;
+            CurrentStatus = statusService.Get(2);
             CurrentOrder = new OrderDTO();
             CurrentOrder.Date = DateTime.Now;
+            CurrentOrder.Status = CurrentStatus;
+           
             
+
             Users = new ObservableCollection<UserDTO>(userService.GetAll());
             Statuses = new ObservableCollection<OrderStatusDTO>(statusService.GetAll());
             InitCommand();
