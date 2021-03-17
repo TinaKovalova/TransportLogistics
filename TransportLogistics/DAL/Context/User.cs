@@ -30,7 +30,6 @@ namespace DAL.Context
         [StringLength(50)]
         public string UserPatronymic { get; set; }
 
-        [Required]
         [StringLength(20)]
         public string UserDrivingLecense { get; set; }
 

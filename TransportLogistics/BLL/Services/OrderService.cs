@@ -24,6 +24,7 @@ namespace BLL.Services
                 cfg.CreateMap<Order, OrderDTO>().ReverseMap();
                 cfg.CreateMap<OrderStatus, OrderStatusDTO>().ReverseMap();
                 cfg.CreateMap<User, UserDTO>().ReverseMap();
+                cfg.CreateMap<Car, CarDTO>().ReverseMap();
 
             });
             mapper = new Mapper(config);

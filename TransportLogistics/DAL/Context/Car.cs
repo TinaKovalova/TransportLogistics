@@ -9,6 +9,12 @@ namespace DAL.Context
     [Table("Car")]
     public partial class Car
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Car()
+        {
+            Order = new HashSet<Order>();
+        }
+
         public int CarId { get; set; }
 
         [Required]
@@ -28,5 +34,8 @@ namespace DAL.Context
         public virtual Fuel Fuel { get; set; }
 
         public virtual User User { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Order { get; set; }
     }
 }

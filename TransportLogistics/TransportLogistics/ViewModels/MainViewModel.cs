@@ -265,7 +265,7 @@ namespace TransportLogistics.ViewModels
           
             // InitCollection();
             Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
-            Users = new ObservableCollection<UserDTO>(usersService.GetAll().ToList());
+            Users = new ObservableCollection<UserDTO>(usersService.GetAll());
             OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
             Cars = new ObservableCollection<CarDTO>(carService.GetAll());
             Orders = new ObservableCollection<OrderDTO>(orderService.GetAll());
@@ -460,14 +460,29 @@ namespace TransportLogistics.ViewModels
                  }
                  else if(param== "byCar")
                  {
-
+                     var select = Orders.Where(order => order.CarId == SelectedCar.CarId);
+                     Orders = new ObservableCollection<OrderDTO>(select);
                  }
                  else if (param == "find")
                  {
-                     var select = Orders.Where(order => order.FromWhere.Contains(FindString) || order.Where.Contains(FindString)|| order.Note.Contains(FindString));
+                     var select = Orders.Where(order => order.WhereFrom.Contains(FindString) || order.Where.Contains(FindString));
                      Orders = new ObservableCollection<OrderDTO>(select);
                  }
 
+                 else if (param == "clear")
+                 {
+                     Orders = new ObservableCollection<OrderDTO>(orderService.GetAll());
+
+                     foreach (var i in Orders)
+                     {
+                         if (i.StatusId.HasValue)
+                         {
+                             i.Status = orderStatusService.Get((int)(i.StatusId));
+                             i.OrderUser = usersService.Get((int)(i.UserId));
+                         }
+                     }
+
+                 }
              });
         }
 
@@ -478,7 +493,7 @@ namespace TransportLogistics.ViewModels
     /*
   private async void InitCollection()
   {
-      await Task.Run(() => Roles = new ObservableCollection<string>(roleService.GetAll().Select(x => x.ToString())));
+      await Task.Run(() => Roles = new ObservableCollection<string>(roleService.GetAll());
   }*/
 
 

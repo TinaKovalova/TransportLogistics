@@ -32,9 +32,10 @@
                 CommandParameter="byUser">инициатор</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ComboBox Width="100"
-                             ItemsSource="{Binding Users}"
-                             SelectedItem="{Binding SelectedUser}"></ComboBox>
+                <ComboBox Width="200"
+                              ItemsSource="{Binding Cars}"
+                              SelectedItem="{Binding SelectedCar}"
+                              Text="{Binding SelectedCar.CarNumber}"></ComboBox>
                 <Button
                  Command="{Binding SortCommand}"
                 CommandParameter="byCar">авто</Button>
@@ -57,9 +58,11 @@
                     <GridView Selector.IsSelected="False" >
                         <GridViewColumn DisplayMemberBinding="{Binding Date,StringFormat={}{0:dd.MM.yyyy}}"
                                         Width="70">Дата</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Car.CarNumber}"
+                                        Width="90">Автомобиль </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Status.StatusName}"
-                                        Width="120">Статус </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding FromWhere}"
+                                        Width="100">Статус</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding WhereFrom}"
                                          Width="180">Откуда</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Where}"
                                          Width="180">Куда</GridViewColumn>
@@ -82,7 +85,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="100">Статус заказа:</Label>
-                    <ComboBox Width="200"
+                    <ComboBox Width="120"
                               ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.OrderStatuses}"
                               SelectedValue="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SelectedOrder.StatusId}"
                               SelectedValuePath="StatusId"
@@ -91,28 +94,37 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="100">Ответственный:</Label>
-                    <TextBlock Width="180" Margin="2" TextAlignment="Justify"
+                    <TextBlock Width="150" Margin="3" TextAlignment="Center"
                                Text="{Binding SelectedOrder.OrderUser.UserLastName}"></TextBlock>
                    
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="3">
                     <Label Width="80">Откуда:</Label>
                     <TextBox Width="220"
-                           Text="{Binding SelectedOrder.FromWhere}"></TextBox>
+                             TextAlignment="Center"
+                           Text="{Binding SelectedOrder.WhereFrom}"></TextBox>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="3">
                     <Label Width="80">Куда:</Label>
                     <TextBox Width="220"
-                         Text="{Binding SelectedOrder.Where}"></TextBox>
+                             TextAlignment="Center"
+                             Text="{Binding SelectedOrder.Where}"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="3">
                     <Label Width="80">Примечание:</Label>
                     <TextBox Width="400"
+                             TextAlignment="Center"
                          Text="{Binding SelectedOrder.Note, Mode=OneWay}"></TextBox>
+                    <Label Width="40" Margin="30 0 0 0">Авто:</Label>
+                    <ComboBox Width="200"
+                              ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.Cars}"
+                              SelectedValue="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SelectedOrder.CarId}"
+                              SelectedValuePath="CarId"
+                             ></ComboBox>
                 </StackPanel>
                
             </StackPanel>

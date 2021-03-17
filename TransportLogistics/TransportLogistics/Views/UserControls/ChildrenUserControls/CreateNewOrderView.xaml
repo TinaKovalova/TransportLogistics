@@ -27,14 +27,17 @@
                           SelectedItem="{Binding CurrentOrder.OrderUser}"></ComboBox>
                     <Label Width="100">Статус:</Label>
                   
-                    <TextBlock Width="150" Text="{Binding CurrentOrder.Status.StatusName}"/>
+                    <TextBlock Width="150" 
+                               Padding="4"
+                               TextAlignment="Center"
+                               Text="{Binding CurrentOrder.Status.StatusName}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Откуда:</Label>
                     <TextBox Width="220"
-                           Text="{Binding CurrentOrder.FromWhere}"></TextBox>
+                           Text="{Binding CurrentOrder.WhereFrom}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Куда:</Label>

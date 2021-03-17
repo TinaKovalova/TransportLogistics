@@ -45,6 +45,8 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             set
             {
                 currentOrder = value;
+                currentOrder.Date = DateTime.Now;
+                
                 Notify();
             }
 
@@ -66,10 +68,9 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             this.orderService = orderService;
             this.userService = userService;
             this.statusService = statusService;
-            CurrentStatus = statusService.Get(2);
+           
             CurrentOrder = new OrderDTO();
-            CurrentOrder.Date = DateTime.Now;
-            CurrentOrder.Status = CurrentStatus;
+            CurrentOrder.Status = statusService.Get(1); 
            
             
 

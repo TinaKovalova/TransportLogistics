@@ -41,8 +41,8 @@ SET IDENTITY_INSERT dbo.OrderStatus ON;
 INSERT INTO dbo.OrderStatus(StatusId, StatusName) 
 
 VALUES 
-     (1, 'новый'),
-     (2, 'в работе'),
+     (1, 'в работе'),
+     (2, 'новый'),
      (3, 'выполнен'),
      (4, 'отменен');
 	
@@ -58,12 +58,12 @@ CREATE TABLE dbo.[User]
    UserLastName NVARCHAR(50) NOT NULL,
    UserFirstName NVARCHAR(50) NOT NULL,
    UserPatronymic NVARCHAR(50) NOT NULL,
-   UserDrivingLecense NVARCHAR(20),
+   UserDrivingLecense NVARCHAR(20) NOT NULL,
    RoleId int foreign key REFERENCES dbo.Role(RoleId)
 );
 GO
 SET IDENTITY_INSERT dbo.[User] ON;
-INSERT INTO dbo.[User](UserId, UserLastName,UserFirstName,UserPatronymic, UserDrivingLecense, RoleId ) 
+INSERT INTO dbo.[User](UserId, UserLastName,UserFirstName,UserPatronymic, UserDrivingLecense, UserRoleId  ) 
 
 VALUES 
      (1, 'Самойлов','Алексей','Иванович','АІВ 182900',2),
@@ -107,7 +107,7 @@ CREATE TABLE dbo.Car
 GO
 
 SET IDENTITY_INSERT dbo.Car ON;
-INSERT INTO dbo.Car(CarId, CarName, CarNumber,FuelConsumption,FuelId,UserId )
+INSERT INTO dbo.Car(CarId, CarName, CarNumber,FuelConsumption,FuelId,DriverId )
 
 VALUES 
      (1, 'Renault Trafic', 'АВ 1275 СІ', 8.1, 3,1),
@@ -124,10 +124,9 @@ CREATE TABLE dbo.[Order]
 ( 
    OrderId int not null IDENTITY(1,1) primary key,
    Date date NOT NULL,
-   WhereFrom NVARCHAR(50) NOT NULL,
+   FromWhere NVARCHAR(50) NOT NULL,
    [Where] NVARCHAR(50) NOT NULL,
-   Note NVARCHAR(50),
-   CarId int foreign key REFERENCES dbo.Car(CarId),
+   Note NVARCHAR(50) NOT NULL,
    StatusId int foreign key REFERENCES dbo.OrderStatus(StatusId),
    UserId int foreign key REFERENCES dbo.[User](UserId),
 );

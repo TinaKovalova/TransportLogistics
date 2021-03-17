@@ -16,19 +16,22 @@ namespace DAL.Context
 
         [Required]
         [StringLength(50)]
-        public string FromWhere { get; set; }
+        public string WhereFrom { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Where { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string Note { get; set; }
+
+        public int? CarId { get; set; }
 
         public int? StatusId { get; set; }
 
         public int? UserId { get; set; }
+
+        public virtual Car Car { get; set; }
 
         public virtual OrderStatus OrderStatus { get; set; }
 
