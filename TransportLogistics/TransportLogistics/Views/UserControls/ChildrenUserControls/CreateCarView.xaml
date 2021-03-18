@@ -8,7 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{StaticResource vmlocator}">
     <Grid DataContext="{Binding CreateCarViewModel}">
-        <StackPanel Margin="10 30 10 10">
+        <StackPanel >
+            <Label HorizontalAlignment="Center" Margin="10"
+                   FontSize="14" FontWeight="Bold">Добавление нового автомобиля</Label>
             <StackPanel  Orientation="Horizontal" Margin="10">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="135">Название автомобиля:</Label>

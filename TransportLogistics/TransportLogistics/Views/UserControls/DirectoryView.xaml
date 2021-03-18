@@ -24,7 +24,7 @@
                                 Height="30"
                                 HorizontalAlignment="Left"
                                 Command="{Binding CreateCommand}"
-                                CommandParameter="User"
+                                CommandParameter="Пользователи"
                                 ToolTip="Редактирование">
                                 <Image Source="/Icons/pen.png"></Image>
                             </Button>
@@ -64,14 +64,15 @@
                                 Height="30"
                                 HorizontalAlignment="Left"
                                 Command="{Binding CreateCommand}"
-                                CommandParameter="Car"
+                                CommandParameter="Автомобили"
                                 ToolTip="Редактирование">
                                 <Image Source="/Icons/pen.png"></Image>
                             </Button>
-                            <Button Width="50"
+                            <Button Margin="2"
+                                Width="50"
                                 Height="30"
                                 HorizontalAlignment="Left"
-                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                                Command="{Binding CreateCommand}"
                                 CommandParameter="Car"
                                 ToolTip="Добавить автомобиль">
                                 <Image Source="/Icons/add.png"></Image>
@@ -103,14 +104,15 @@
                                 Height="30"
                                 HorizontalAlignment="Left"
                                 Command="{Binding CreateCommand}"
-                                CommandParameter="Role"
+                                CommandParameter="Роли"
                                 ToolTip="Редактирование">
                                 <Image Source="/Icons/pen.png"></Image>
                             </Button>
-                            <Button Width="50"
+                            <Button Margin="2"
+                                Width="50"
                                 Height="30"
                                 HorizontalAlignment="Left"
-                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                                Command="{Binding CreateCommand}"
                                 CommandParameter="Role"
                                 ToolTip="Добавить роль">
                                 <Image Source="/Icons/add.png"></Image>
@@ -142,14 +144,15 @@
                                 Height="30"
                                 HorizontalAlignment="Left"
                                 Command="{Binding CreateCommand}"
-                                CommandParameter="Status"
+                                CommandParameter="Статус заказа"
                                 ToolTip="Редактирование">
                                 <Image Source="/Icons/pen.png"></Image>
                             </Button>
-                            <Button Width="50"
+                            <Button Margin="2"
+                                Width="50"
                                 Height="30"
                                 HorizontalAlignment="Left"
-                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                                Command="{Binding CreateCommand}"
                                 CommandParameter="Status"
                                 ToolTip="Добавить статус">
                                 <Image Source="/Icons/add.png"></Image>

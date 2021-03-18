@@ -8,8 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{StaticResource vmlocator}">
     <Grid DataContext="{Binding  CreateStatusViewModel}">
-        <StackPanel Grid.Column="1" Margin="5">
-            <Label Margin="100 0">Редактировние</Label>
+        <StackPanel Margin="5">
+            <Label HorizontalAlignment="Center" Margin="10"
+                   FontSize="14" FontWeight="Bold">Добавление нового статуса</Label>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Статус:</Label>
                 <TextBox Width="180"

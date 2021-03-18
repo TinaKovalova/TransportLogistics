@@ -12,7 +12,7 @@
             <ColumnDefinition Width="1.6*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Margin="5">
+        <StackPanel Grid.Column="1" Margin="5"  Background="CadetBlue">
             <Label Margin="100 0">Редактировние</Label>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Название:</Label>

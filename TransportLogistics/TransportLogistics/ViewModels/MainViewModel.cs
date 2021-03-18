@@ -35,7 +35,7 @@ namespace TransportLogistics.ViewModels
         private CarDTO selectedCar;
         private OrderDTO selectedOrder;
         private DateTime sortDate=DateTime.Now;
-        private string findString;
+        private string findString="";
         PrintDialog printDialog;
         Dictionary<string, Action> viewChangeMethods;
         Dictionary<string, Action> saveMethods;
@@ -318,6 +318,7 @@ namespace TransportLogistics.ViewModels
                 ["clear"] = () =>
                 {
                     InitOrdersCollection();
+                    FindString = "";
                     return Orders;
                 }
             };
@@ -351,6 +352,7 @@ namespace TransportLogistics.ViewModels
                      SelectedOrder = null;
                      SelectedOrderStatus = null;
                      SelectedRole = null;
+                    
                      //перезалить вьюху////////////////////////////////////////////////////////
                  }
 

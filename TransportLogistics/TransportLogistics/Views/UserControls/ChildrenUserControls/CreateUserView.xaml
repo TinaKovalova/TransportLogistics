@@ -9,7 +9,9 @@
              DataContext="{StaticResource vmlocator}">
     
     <Grid DataContext="{Binding CreateUserModel}">
-        <StackPanel Margin="10 30 10 10">
+        <StackPanel >
+            <Label HorizontalAlignment="Center" Margin="10"
+                   FontSize="14" FontWeight="Bold">Добавление нового пользователя</Label>
             <StackPanel  Orientation="Horizontal" Margin="10">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="80">Фамилия:</Label>

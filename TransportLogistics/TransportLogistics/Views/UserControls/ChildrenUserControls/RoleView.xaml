@@ -12,7 +12,7 @@
             <ColumnDefinition Width="1.6*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Margin="5">
+        <StackPanel Grid.Column="1" Margin="5"  Background="CadetBlue">
             <Label Margin="100 0">Редактировние</Label>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Роль:</Label>
@@ -28,7 +28,7 @@
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
-                        CommandParameter="canсel">Отмена</Button>
+                        CommandParameter="cancel">Отмена</Button>
                 
             </StackPanel>
            
