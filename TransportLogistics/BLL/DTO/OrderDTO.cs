@@ -19,6 +19,7 @@ namespace BLL.DTO
 
         public int? UserId { get; set; }
         public int? CarId { get; set; }
+        public float? Distance { get; set; }
         public CarDTO Car { get; set; }
         public OrderStatusDTO  Status { get; set; }
         public UserDTO OrderUser { get; set; }

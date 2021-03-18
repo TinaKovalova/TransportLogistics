@@ -7,8 +7,80 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{StaticResource vmlocator}" >
-    <Grid DataContext="{Binding MainViewModel}">
-        <TextBlock>ZVIT</TextBlock>
-            
+    <Grid DataContext="{Binding MainViewModel}" Background="Lavender">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="12*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="Lavender">
+            <StackPanel Orientation="Horizontal">
+                <DatePicker SelectedDate="{Binding SortDate}"></DatePicker>
+                <Label Width="45">Авто:</Label>
+                <ComboBox Width="200"
+                                          ItemsSource="{Binding Cars}"
+                                          SelectedItem="{Binding SelectedCar}">
+
+                </ComboBox>
+                <Button Command="{Binding SortCommand}"
+                        CommandParameter="filling">Заполнить</Button>
+                <Button Command="{Binding PrintVisualCommand}"
+                        CommandParameter="{Binding ElementName=docViewer}"
+                        Margin="10 0 0 0"
+                        Width="50">
+                    <Image  Source="/Icons/Printer.png"></Image>
+                </Button>
+            </StackPanel>
+           
+        </StackPanel>
+        <FlowDocumentScrollViewer Grid.Row="1" x:Name="docViewer">
+            <FlowDocument>
+                <Paragraph TextAlignment="Center">Подорожній лист службового автомобіля</Paragraph>
+                <Paragraph>
+                    <TextBlock Text="{Binding SortDate,StringFormat={}{0:dd.MM.yyyy}}"></TextBlock>
+                </Paragraph>
+                <Paragraph>
+                    <Span>
+                        <TextBlock>Транспортний засіб:</TextBlock>
+                        <TextBlock Text="{Binding SelectedCar}" Width="250"></TextBlock>
+                    </Span>
+                </Paragraph>
+                <Paragraph>Показання спідометра:</Paragraph>
+                <Paragraph>
+                    <Span>
+                        <TextBlock>При виїзді</TextBlock>
+                        <TextBlock Width="250">_______________</TextBlock>
+                        <TextBlock>При поверненні</TextBlock>
+                        <TextBlock Width="250">_______________</TextBlock>
+                    </Span>
+                </Paragraph>
+               
+              
+                <BlockUIContainer>
+                    <ListView ItemsSource="{Binding Orders}"
+                              BorderThickness="1"
+                              BorderBrush="Gray">
+                        <ListView.View>
+                            <GridView Selector.IsSelected="False" >
+                                <GridViewColumn DisplayMemberBinding="{Binding WhereFrom}"
+                                                Width="400">Пункт відправки</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Where}"
+                                         Width="400">Пункт призначення</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Distance}"
+                                                Width="120">Відстань, км</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </BlockUIContainer>
+                <Paragraph TextAlignment="Right">
+                    <TextBlock>РАЗОМ(км.):</TextBlock>
+                    <TextBlock Width="250" TextAlignment="Left">_______________</TextBlock>
+                </Paragraph>
+
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+        
+        
+
     </Grid>
 </UserControl>

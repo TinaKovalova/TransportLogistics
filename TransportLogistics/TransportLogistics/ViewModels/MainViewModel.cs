@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using TransportLogistics.Infrastructure;
 using TransportLogistics.Views.UserControls;
@@ -249,6 +250,7 @@ namespace TransportLogistics.ViewModels
         public ICommand RemoveCommand { get; set; }
         public ICommand SaveOrCancelCommand { get; set; }
         public ICommand SortCommand { get; set; }
+        public ICommand PrintVisualCommand { get; set; }
 
         #endregion
 
@@ -268,7 +270,7 @@ namespace TransportLogistics.ViewModels
             Users = new ObservableCollection<UserDTO>(usersService.GetAll());
             OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
             Cars = new ObservableCollection<CarDTO>(carService.GetAll());
-            Orders = new ObservableCollection<OrderDTO>(orderService.GetAll());
+            Orders = new ObservableCollection<OrderDTO>(orderService.GetAll().OrderBy(x => x.Date));
 
             foreach(var i in Orders)
             {
@@ -278,7 +280,8 @@ namespace TransportLogistics.ViewModels
                     i.OrderUser = usersService.Get((int)(i.UserId));
                 }
             }
-           
+            
+
             InitCommands();
             
           
@@ -448,8 +451,7 @@ namespace TransportLogistics.ViewModels
                  var param = obj as String;
                  if (param == "byDate")
                  {
-                     
-                     var select =orderService.GetAll().Where(order=>order.Date==sortDate);
+                     var select =orderService.GetAll().Where(order=>order.Date==SortDate);
                      Orders =new ObservableCollection<OrderDTO>(select);
                  }
                  else if (param == "byUser")
@@ -468,10 +470,15 @@ namespace TransportLogistics.ViewModels
                      var select = Orders.Where(order => order.WhereFrom.Contains(FindString) || order.Where.Contains(FindString));
                      Orders = new ObservableCollection<OrderDTO>(select);
                  }
+                 else if (param == "filling")
+                 {
+                     var select = orderService.GetAll().Where(order => order.Date == SortDate && order.CarId==SelectedCar?.CarId);
+                     Orders = new ObservableCollection<OrderDTO>(select);
+                 }
 
                  else if (param == "clear")
                  {
-                     Orders = new ObservableCollection<OrderDTO>(orderService.GetAll());
+                     Orders = new ObservableCollection<OrderDTO>(orderService.GetAll().OrderBy(x => x.Date));
 
                      foreach (var i in Orders)
                      {
@@ -481,11 +488,25 @@ namespace TransportLogistics.ViewModels
                              i.OrderUser = usersService.Get((int)(i.UserId));
                          }
                      }
-
+                     Orders.OrderBy(order => order.Date);
                  }
              });
-        }
+            PrintVisualCommand = new RelayCommand(obj =>
+             {
+                 var viewDoc = obj as System.Windows.Media.Visual;
+                
+                 PrintDialog printDialog = new PrintDialog();
+                 if (printDialog.ShowDialog() == true)
+                 {
+                     printDialog.PrintVisual(obj as System.Windows.Media.Visual, "Printing");
+                 }
+                
 
+
+
+
+             });
+        }
 
        
     }
