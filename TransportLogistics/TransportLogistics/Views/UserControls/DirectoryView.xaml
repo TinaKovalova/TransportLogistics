@@ -18,24 +18,28 @@
                             <RowDefinition Height="0.5*"></RowDefinition>
                             <RowDefinition Height="6*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Margin="5"
-                                Grid.Row="0" 
+                        <StackPanel Orientation="Horizontal" >
+                            <Button Margin="2"
                                 Width="50"
+                                Height="30"
                                 HorizontalAlignment="Left"
                                 Command="{Binding CreateCommand}"
-                                CommandParameter="User">Назад</Button>
-                            <Button Margin="5"
-                                Grid.Row="0" 
-                                Width="200"
+                                CommandParameter="User"
+                                ToolTip="Редактирование">
+                                <Image Source="/Icons/pen.png"></Image>
+                            </Button>
+                            <Button Margin="2" 
+                                Width="50"
+                                Height="30"
                                 HorizontalAlignment="Left"
                                 Command="{Binding CreateCommand}"
-                                CommandParameter="User">Создать нового пользователя</Button>
+                                CommandParameter="User"
+                                ToolTip="Добавить пользователя">
+                                <Image Source="/Icons/add.png"></Image>
+                            </Button>
                         </StackPanel>
-                        
 
-
-                        <Grid Grid.Row="1" Background="LightPink">
+                        <Grid Grid.Row="1" Background="AliceBlue">
                             <ContentControl Content="{Binding CurrentFirstChildView}">
 
                             </ContentControl>
@@ -54,15 +58,29 @@
                             <RowDefinition Height="0.5*"></RowDefinition>
                             <RowDefinition Height="6*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Button Margin="5"
-                                Grid.Row="0" 
-                                Width="200"
+                        <StackPanel Orientation="Horizontal">
+                            <Button Margin="2"
+                                Width="50"
+                                Height="30"
                                 HorizontalAlignment="Left"
-                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
-                        CommandParameter="Car">Создать автомобиль</Button>
+                                Command="{Binding CreateCommand}"
+                                CommandParameter="Car"
+                                ToolTip="Редактирование">
+                                <Image Source="/Icons/pen.png"></Image>
+                            </Button>
+                            <Button Width="50"
+                                Height="30"
+                                HorizontalAlignment="Left"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                                CommandParameter="Car"
+                                ToolTip="Добавить автомобиль">
+                                <Image Source="/Icons/add.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        
 
 
-                        <Grid Grid.Row="1" Background="LightPink">
+                        <Grid Grid.Row="1" Background="AliceBlue">
                             <ContentControl Content="{Binding CurrentFirstChildView}">
 
                             </ContentControl>
@@ -79,15 +97,29 @@
                             <RowDefinition Height="0.5*"></RowDefinition>
                             <RowDefinition Height="6*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Button Margin="5"
-                                Grid.Row="0" 
-                                Width="200"
+                        <StackPanel Orientation="Horizontal">
+                            <Button Margin="2"
+                                Width="50"
+                                Height="30"
                                 HorizontalAlignment="Left"
-                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
-                        CommandParameter="Role">Создать роль</Button>
+                                Command="{Binding CreateCommand}"
+                                CommandParameter="Role"
+                                ToolTip="Редактирование">
+                                <Image Source="/Icons/pen.png"></Image>
+                            </Button>
+                            <Button Width="50"
+                                Height="30"
+                                HorizontalAlignment="Left"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                                CommandParameter="Role"
+                                ToolTip="Добавить роль">
+                                <Image Source="/Icons/add.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        
 
 
-                        <Grid Grid.Row="1" Background="LightPink">
+                        <Grid Grid.Row="1" Background="AliceBlue">
                             <ContentControl Content="{Binding CurrentFirstChildView}">
 
                             </ContentControl>
@@ -104,20 +136,31 @@
                             <RowDefinition Height="0.5*"></RowDefinition>
                             <RowDefinition Height="6*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Button Margin="5"
-                                Grid.Row="0" 
-                                Width="200"
+                        <StackPanel Orientation="Horizontal">
+                            <Button Margin="2"
+                                Width="50"
+                                Height="30"
                                 HorizontalAlignment="Left"
-                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
-                        CommandParameter="Status">Создать статус</Button>
+                                Command="{Binding CreateCommand}"
+                                CommandParameter="Status"
+                                ToolTip="Редактирование">
+                                <Image Source="/Icons/pen.png"></Image>
+                            </Button>
+                            <Button Width="50"
+                                Height="30"
+                                HorizontalAlignment="Left"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.CreateCommand}"
+                                CommandParameter="Status"
+                                ToolTip="Добавить статус">
+                                <Image Source="/Icons/add.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        
 
 
-                        <Grid Grid.Row="1" Background="LightPink">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="93*"/>
-                                <ColumnDefinition Width="106*"/>
-                            </Grid.ColumnDefinitions>
-                            <ContentControl Content="{Binding CurrentFirstChildView}" Grid.ColumnSpan="2" Margin="0,0,0.4,-0.2">
+                        <Grid Grid.Row="1" Background="AliceBlue">
+                           
+                            <ContentControl Content="{Binding CurrentFirstChildView}">
 
                             </ContentControl>
                         </Grid>
@@ -125,14 +168,7 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem  Width="100">
-                <TabItem.Header>Топливо</TabItem.Header>
-                <TabItem.Content>
-                    <StackPanel>
-                        <TextBlock></TextBlock>
-                    </StackPanel>
-                </TabItem.Content>
-            </TabItem>
+
         </TabControl>
 
 

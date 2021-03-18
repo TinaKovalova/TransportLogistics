@@ -18,17 +18,27 @@
                 <DatePicker SelectedDate="{Binding SortDate}"></DatePicker>
                 <Label Width="45">Авто:</Label>
                 <ComboBox Width="200"
-                                          ItemsSource="{Binding Cars}"
-                                          SelectedItem="{Binding SelectedCar}">
+                          ItemsSource="{Binding Cars}"
+                          SelectedItem="{Binding SelectedCar}">
 
                 </ComboBox>
                 <Button Command="{Binding SortCommand}"
                         CommandParameter="filling">Заполнить</Button>
-                <Button Command="{Binding PrintVisualCommand}"
+                <Button x:Name="saveBtn" 
+                        Command="{Binding PrintVisualCommand}"
                         CommandParameter="{Binding ElementName=docViewer}"
+                        
                         Margin="10 0 0 0"
                         Width="50">
-                    <Image  Source="/Icons/Printer.png"></Image>
+                    <Image  Source="/Icons/print.png"></Image>
+                </Button>
+                <Button x:Name="printBtn" 
+                        Command="{Binding SaveVisualCommand}"
+                        CommandParameter="{Binding ElementName=docViewer}"
+                        
+                        Margin="10 0 0 0"
+                        Width="50">
+                    <Image  Source="/Icons/save.png"></Image>
                 </Button>
             </StackPanel>
            

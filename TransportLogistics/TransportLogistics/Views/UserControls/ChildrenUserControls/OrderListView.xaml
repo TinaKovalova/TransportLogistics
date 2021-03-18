@@ -17,38 +17,58 @@
 
         <StackPanel Orientation="Horizontal" Background="AliceBlue">
             <StackPanel Orientation="Horizontal">
-                <Label>Отбор:</Label>
-                <DatePicker SelectedDate="{Binding SortDate}"></DatePicker>
+               
+                <DatePicker SelectedDate="{Binding SortDate}" Height="30"></DatePicker>
                 <Button
                  Command="{Binding SortCommand}"
-                CommandParameter="byDate">по дате</Button>
+                 CommandParameter="byDate"
+                    ToolTip="Отбор по дате">
+                    <Image Source="/Icons/filter.png"></Image>
+                </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ComboBox Width="100"
+                <ComboBox Width="130"
                              ItemsSource="{Binding Users}"
                              SelectedItem="{Binding SelectedUser}"></ComboBox>
                 <Button
                  Command="{Binding SortCommand}"
-                CommandParameter="byUser">инициатор</Button>
+                 CommandParameter="byUser"
+                    ToolTip="Отбор по ответственному">
+                    <Image Source="/Icons/user.png"></Image>
+                </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ComboBox Width="200"
+                <ComboBox Width="130"
                               ItemsSource="{Binding Cars}"
                               SelectedItem="{Binding SelectedCar}"
                               Text="{Binding SelectedCar.CarNumber}"></ComboBox>
                 <Button
                  Command="{Binding SortCommand}"
-                CommandParameter="byCar">авто</Button>
+                 CommandParameter="byCar"
+                    ToolTip="Отбор по автомобилю">
+                    <Image Source="/Icons/car.png"></Image>
+                </Button>
             </StackPanel>
-            <Label>Поиск:</Label>
-            <TextBox Width="100"
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="100 0 0 0 ">
+                <TextBox Width="200"
                      Text="{Binding FindString}"></TextBox>
-            <Button
+                <Button
                 Command="{Binding SortCommand}"
-                CommandParameter="find">поиск</Button>
-            <Button
+                CommandParameter="find"
+                    ToolTip="Поиск по адресу">
+                    <Image Source="/Icons/find.png"></Image>
+                </Button>
+                <Button
                 Command="{Binding SortCommand}"
-                CommandParameter="clear">сброс параметров</Button>
+                CommandParameter="clear"
+                ToolTip="Сброс параметров поиска/отбора"
+                     Margin="10 0 0 0 ">
+                    <Image Source="/Icons/cancel.png"></Image>
+                </Button>
+            </StackPanel>    
+           
             
         </StackPanel>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden">
@@ -63,9 +83,9 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Status.StatusName}"
                                         Width="100">Статус</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding WhereFrom}"
-                                         Width="180">Откуда</GridViewColumn>
+                                         Width="200">Откуда</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Where}"
-                                         Width="180">Куда</GridViewColumn>
+                                         Width="200">Куда</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Note}"
                                          Width="150">Примечание</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding OrderUser.UserLastName}"

@@ -35,7 +35,9 @@ namespace TransportLogistics.ViewModels
         private OrderDTO selectedOrder;
         private DateTime sortDate=DateTime.Now;
         private string findString;
-       
+        PrintDialog printDialog;
+
+
 
 
 
@@ -251,6 +253,7 @@ namespace TransportLogistics.ViewModels
         public ICommand SaveOrCancelCommand { get; set; }
         public ICommand SortCommand { get; set; }
         public ICommand PrintVisualCommand { get; set; }
+        public ICommand SaveVisualCommand { get; set; }
 
         #endregion
 
@@ -263,8 +266,8 @@ namespace TransportLogistics.ViewModels
             this.orderStatusService = orderStatusService;
             this.carService = carService;
             this.orderService = orderService;
-           
-          
+            printDialog = new PrintDialog();
+
             // InitCollection();
             Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
             Users = new ObservableCollection<UserDTO>(usersService.GetAll());
@@ -472,7 +475,7 @@ namespace TransportLogistics.ViewModels
                  }
                  else if (param == "filling")
                  {
-                     var select = orderService.GetAll().Where(order => order.Date == SortDate && order.CarId==SelectedCar?.CarId);
+                     var select = orderService.GetAll().Where(order => order.Date == SortDate && order.CarId==SelectedCar?.CarId && order.StatusId==2);
                      Orders = new ObservableCollection<OrderDTO>(select);
                  }
 
@@ -495,17 +498,17 @@ namespace TransportLogistics.ViewModels
              {
                  var viewDoc = obj as System.Windows.Media.Visual;
                 
-                 PrintDialog printDialog = new PrintDialog();
                  if (printDialog.ShowDialog() == true)
                  {
-                     printDialog.PrintVisual(obj as System.Windows.Media.Visual, "Printing");
+                     printDialog.PrintVisual(obj as System.Windows.Media.Visual, "Печать...");
                  }
-                
-
-
-
-
              });
+            SaveVisualCommand= new RelayCommand(obj =>
+            {
+                var viewDoc = obj as System.Windows.Media.Visual;
+                printDialog.PrintVisual(obj as System.Windows.Media.Visual, "Сохранение...");
+                
+            });
         }
 
        
