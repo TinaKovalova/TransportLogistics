@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TransportLogistics.Infrastructure;
+using System.Data.Entity.Validation;
 
 namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
 {
@@ -45,6 +46,7 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             set
             {
                 currentOrder = value;
+                currentOrder.StatusId =statusService.Get(1).StatusId; ;
                 currentOrder.Date = DateTime.Now;
                 
                 Notify();
@@ -70,7 +72,7 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             this.statusService = statusService;
            
             CurrentOrder = new OrderDTO();
-            CurrentOrder.Status = statusService.Get(1); 
+             
            
             
 
@@ -86,23 +88,33 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 var param = obj as String;
                 if (param == "save")
                 {
-                    if (CurrentOrder != null)
+                    try
                     {
-                        CurrentOrder.StatusId = CurrentOrder.Status?.StatusId;
                         CurrentOrder.UserId = CurrentOrder.OrderUser?.UserId;
+                        if (CurrentOrder.Where != null & CurrentOrder.WhereFrom != null)
+                        {
+                            orderService.CreateOrUpdate(CurrentOrder);
+                            MessageBox.Show("Заказ добавлен ");
+                            CurrentOrder = new OrderDTO();
+                        }
+                        else
+                            MessageBox.Show("Некорректно заполнены данные!\nЗапись не сохранена.");
                     }
-                    orderService.CreateOrUpdate(CurrentOrder);
-                    MessageBox.Show("Заказ добавлен ");
-
-                    CurrentOrder = new OrderDTO();
-                    CurrentOrder.Date = DateTime.Now;
-
+                    catch(DbEntityValidationException)
+                    {
+                        MessageBox.Show("Некорректно заполнены данные!\nЗапись невалидна.");
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                   
 
                 }
                 else if (param == "cancel")
                 {
                     CurrentOrder = new OrderDTO();
-                    CurrentOrder.Date = DateTime.Now;
+                    
                 }
 
             });

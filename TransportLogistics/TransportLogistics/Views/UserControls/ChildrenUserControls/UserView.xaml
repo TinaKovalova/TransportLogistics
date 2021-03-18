@@ -52,7 +52,7 @@
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
-                        CommandParameter="cancel">Отмена</Button>
+                        CommandParameter="cancel user">Отмена</Button>
             </StackPanel>
     
 

@@ -284,27 +284,32 @@ namespace TransportLogistics.ViewModels
             {
                 ["user"] = () =>
                 {
-                    usersService.CreateOrUpdate(SelectedUser);
+                    if(SelectedUser!=null)
+                        usersService.CreateOrUpdate(SelectedUser);
                     Users = new ObservableCollection<UserDTO>(usersService.GetAll());
                 },
                 ["car"] = () =>
                 {
-                    carService.CreateOrUpdate(SelectedCar);
+                    if (SelectedCar != null)
+                        carService.CreateOrUpdate(SelectedCar);
                     Cars = new ObservableCollection<CarDTO>(carService.GetAll());
                 },
                 ["role"] = () =>
                 {
-                    rolesService.CreateOrUpdate(SelectedRole);
+                    if (SelectedRole != null)
+                        rolesService.CreateOrUpdate(SelectedRole);
                     Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
                 },
                 ["status"] = () =>
                 {
-                    orderStatusService.CreateOrUpdate(SelectedOrderStatus);
+                    if (SelectedOrderStatus != null)
+                        orderStatusService.CreateOrUpdate(SelectedOrderStatus);
                     OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
                 },
                 ["order"] = () =>
                 {
-                    orderService.CreateOrUpdate(SelectedOrder);
+                    if (SelectedOrder != null)
+                        orderService.CreateOrUpdate(SelectedOrder);
                     InitOrdersCollection();
                 }
             };
@@ -340,10 +345,10 @@ namespace TransportLogistics.ViewModels
             SaveOrCancelCommand = new RelayCommand(obj =>
              {
                  var param = obj as String;
+                 string key = param.Split(' ')[1];
                  if (param.StartsWith ("save"))
                  {
-                     string key = param.Split(' ')[1];
-                     saveMethods[key]();
+                    saveMethods[key]();
                  }
                  else if (param.StartsWith("cancel"))
                  {
@@ -352,8 +357,8 @@ namespace TransportLogistics.ViewModels
                      SelectedOrder = null;
                      SelectedOrderStatus = null;
                      SelectedRole = null;
-                    
-                     //перезалить вьюху////////////////////////////////////////////////////////
+                     saveMethods[key]();
+      
                  }
 
              });
