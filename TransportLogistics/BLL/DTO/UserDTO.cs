@@ -13,9 +13,8 @@ namespace BLL.DTO
         public string UserFirstName { get; set; }
         public string UserPatronymic { get; set; }
         public string UserDrivingLecense { get; set; }
-           
-      
-        public string RoleName { get; set; }
+        public int? RoleId { get; set; }
+        public RoleDTO Role { get; set; }
        public override string ToString() => $"{UserLastName} {UserFirstName}";
         
     }

@@ -28,7 +28,7 @@
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
-                        CommandParameter="cansel status">Отмена</Button>
+                        CommandParameter="canсel">Отмена</Button>
 
             </StackPanel>
 
@@ -38,8 +38,13 @@
         </StackPanel>
         <ScrollViewer>
             <ListView ItemsSource="{Binding OrderStatuses}"
-                      SelectedItem="{Binding SelectedOrderStatus}"
-                      >
+                      SelectedItem="{Binding SelectedOrderStatus}">
+                <ListView.View>
+                    <GridView Selector.IsSelected="False">
+                        <GridViewColumn DisplayMemberBinding="{Binding StatusName}" Width="300">Статус</GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
 
             </ListView>
         </ScrollViewer>

@@ -28,7 +28,7 @@
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
-                        CommandParameter="cansel role">Отмена</Button>
+                        CommandParameter="canсel">Отмена</Button>
                 
             </StackPanel>
            
@@ -37,9 +37,16 @@
 
         </StackPanel>
         <ScrollViewer>
+            
             <ListView ItemsSource="{Binding Roles}"
                       SelectedItem="{Binding SelectedRole}">
-               
+                <ListView.View>
+                    <GridView Selector.IsSelected="False">
+                        <GridViewColumn DisplayMemberBinding="{Binding RoleName}" Width="300">Роль</GridViewColumn>
+                        
+                    </GridView>
+                </ListView.View>
+
             </ListView>
         </ScrollViewer>
 

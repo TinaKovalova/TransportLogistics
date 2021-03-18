@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -19,7 +20,7 @@ namespace TransportLogistics.ViewModels
         #region Fields & Propertyes
         private UserControl currentView;
         private UserControl currentFirstChildView;
-        private UserControl currentLastChildView;
+     
         
 
         private TabItem selectedTabItem;
@@ -36,7 +37,10 @@ namespace TransportLogistics.ViewModels
         private DateTime sortDate=DateTime.Now;
         private string findString;
         PrintDialog printDialog;
-
+        Dictionary<string, Action> viewChangeMethods;
+        Dictionary<string, Action> saveMethods;
+        Dictionary<string, Func<IEnumerable<OrderDTO>>> sortMethods;
+        bool loading = true;
 
 
 
@@ -56,15 +60,7 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
-        public UserControl CurrentLastChildView
-        {
-            get => currentLastChildView;
-            set
-            {
-                currentLastChildView = value;
-                Notify();
-            }
-        }
+       
        /* public UserControl PrevView
         {
             get => prevView;
@@ -75,7 +71,7 @@ namespace TransportLogistics.ViewModels
             }
         }*/
 
-        // Создается главное представление на TabItem -----------------------------------------
+       
         public TabItem SelectedTabItem
         {
             get => selectedTabItem;
@@ -83,37 +79,7 @@ namespace TransportLogistics.ViewModels
             {
                 selectedTabItem = value;
                 var param = selectedTabItem.Header.ToString();
-              
-                switch (param)
-                {
-                    case "Пользователи":
-                        {
-                            CurrentFirstChildView = new UserView();
-                            
-                            break;
-                        }
-                    case "Автомобили":
-                        {
-                           CurrentFirstChildView = new CarView();
-                            break;
-                        }
-                    case "Роли":
-                        {
-                           CurrentFirstChildView = new RoleView();
-                            break;
-                        }
-                    case "Статус заказа":
-                        {
-                            CurrentFirstChildView = new StatusView();
-                            break;
-                        }
-                    case "Топливо":
-                        {
-                            //CurrentFirstChildView = new AccountView();
-                            break;
-                        }
-                }
-
+                viewChangeMethods[param]();
                 Notify();
             }
         }
@@ -134,7 +100,6 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
-       
         public UserDTO SelectedUser
         {
             get => selectedUser;
@@ -249,7 +214,6 @@ namespace TransportLogistics.ViewModels
 
         public ICommand ChangeViewCommand { get; set; }
         public ICommand CreateCommand { get; set; }
-        public ICommand RemoveCommand { get; set; }
         public ICommand SaveOrCancelCommand { get; set; }
         public ICommand SortCommand { get; set; }
         public ICommand PrintVisualCommand { get; set; }
@@ -260,22 +224,34 @@ namespace TransportLogistics.ViewModels
         public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService, IService<OrderStatusDTO> orderStatusService, 
                                 IService<CarDTO> carService, IService<OrderDTO> orderService)
         {
-            
             this.rolesService = rolesService;
             this.usersService = usersService;
             this.orderStatusService = orderStatusService;
             this.carService = carService;
             this.orderService = orderService;
             printDialog = new PrintDialog();
+            InitCollection();
+            InitDictionary();
+            InitCommands();
+           
 
-            // InitCollection();
-            Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
-            Users = new ObservableCollection<UserDTO>(usersService.GetAll());
-            OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
-            Cars = new ObservableCollection<CarDTO>(carService.GetAll());
+        }
+        private void InitCollection()
+        {
+            Task.Run(() => {
+                Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
+                Users = new ObservableCollection<UserDTO>(usersService.GetAll());
+                OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
+                Cars = new ObservableCollection<CarDTO>(carService.GetAll());
+                InitOrdersCollection();
+                loading = false;
+            } );
+          
+        }
+        private void InitOrdersCollection()
+        {
             Orders = new ObservableCollection<OrderDTO>(orderService.GetAll().OrderBy(x => x.Date));
-
-            foreach(var i in Orders)
+            foreach (var i in Orders)
             {
                 if (i.StatusId.HasValue)
                 {
@@ -283,84 +259,82 @@ namespace TransportLogistics.ViewModels
                     i.OrderUser = usersService.Get((int)(i.UserId));
                 }
             }
-            
-
-            InitCommands();
-            
-          
+            Orders.OrderBy(order => order.Date);
         }
+        private void InitDictionary()
+        {
+            viewChangeMethods = new Dictionary<string, Action>
+            {
+                ["DirectoryView"] = () => CurrentView = new DirectoryView(),
+                ["OrderView"] = () => CurrentView = new OrderView(),
+                ["AccountView"] = () => CurrentView = new AccountView(),
+                ["User"] = () => CurrentFirstChildView = new CreateUserView(),
+                ["Car"] = () => CurrentFirstChildView = new CreateCarView(),
+                ["Role"] = () => CurrentFirstChildView = new CreateRoleView(),
+                ["Status"] = () => CurrentFirstChildView = new CreateStatusView(),
+                ["OrderList"] = () => CurrentFirstChildView = new OrderListView(),
+                ["Order"] = () => CurrentFirstChildView = new CreateNewOrderView(),
+                ["Пользователи"] = () => CurrentFirstChildView = new UserView(),
+                ["Автомобили"] = () => CurrentFirstChildView = new CarView(),
+                ["Роли"] = () => CurrentFirstChildView = new RoleView(),
+                ["Статус заказа"] = () => CurrentFirstChildView = new StatusView()
+            };
 
+            saveMethods = new Dictionary<string, Action>
+            {
+                ["user"] = () =>
+                {
+                    usersService.CreateOrUpdate(SelectedUser);
+                    Users = new ObservableCollection<UserDTO>(usersService.GetAll());
+                },
+                ["car"] = () =>
+                {
+                    carService.CreateOrUpdate(SelectedCar);
+                    Cars = new ObservableCollection<CarDTO>(carService.GetAll());
+                },
+                ["role"] = () =>
+                {
+                    rolesService.CreateOrUpdate(SelectedRole);
+                    Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
+                },
+                ["status"] = () =>
+                {
+                    orderStatusService.CreateOrUpdate(SelectedOrderStatus);
+                    OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
+                },
+                ["order"] = () =>
+                {
+                    orderService.CreateOrUpdate(SelectedOrder);
+                    InitOrdersCollection();
+                }
+            };
+            sortMethods= new Dictionary<string, Func<IEnumerable<OrderDTO>>>
+            {
+                ["byDate"] = () => Orders.Where(order => order.Date == SortDate),
+                ["byUser"] = () => Orders.Where(order => order.UserId == SelectedUser?.UserId),
+                ["byCar"] = () => Orders.Where(order => order.CarId == SelectedCar?.CarId),
+                ["find"] = () => Orders.Where(order => order.WhereFrom.Contains(FindString) || order.Where.Contains(FindString)),
+                ["filling"] = () => orderService.GetAll().Where(order => order.Date == SortDate && order.CarId == SelectedCar?.CarId && order.StatusId == 2),
+                ["clear"] = () =>
+                {
+                    InitOrdersCollection();
+                    return Orders;
+                }
+            };
+        }
         private void InitCommands()
         {
             ChangeViewCommand = new RelayCommand(obj =>
             {
                 var param = obj as String;
-                switch (param)
-                {
-                    case "DirectoryView":
-                        {
-                            CurrentView = new DirectoryView();
-                           
-                            break;
-                        }
-                    case "OrderView":
-                        {
-                            CurrentView = new OrderView();
-                            break;
-                        }
-                    case "AccountView":
-                        {
-                            CurrentView = new AccountView();
-                            break;
-                        }
-                }
-            });
+                viewChangeMethods[param]();
+              
+            },obj=>loading!=true);
             CreateCommand = new RelayCommand(obj =>
              {
-                 
                  var param = obj as String;
-                 switch (param)
-                 {
-                     case "User":
-                         {
-                            SelectedUser = new UserDTO();
-                            CurrentFirstChildView =new CreateUserView();
-                                                    
-                             break;
-                         }
-                     case "Car":
-                         {
-
-                             SelectedCar = new CarDTO();
-                             CurrentFirstChildView = new CreateCarView();
-                             break;
-                         }
-                     case "Role":
-                         {
-                             SelectedRole = new RoleDTO();
-                             CurrentFirstChildView = new CreateRoleView();
-                             break;
-                         }
-                     case "Status":
-                         {
-                             SelectedOrderStatus = new OrderStatusDTO();
-                             CurrentFirstChildView = new CreateStatusView();
-                             break;
-                         }
-                     case "OrderList":
-                         {
-                             //SelectedOrderStatus = new OrderStatusDTO();
-                             CurrentFirstChildView = new OrderListView();
-                             break;
-                         }
-                     case "Order":
-                         {
-                             //SelectedOrder = new OrderDTO();
-                             CurrentFirstChildView = new CreateNewOrderView();
-                             break;
-                         }
-                 }
-
+                 viewChangeMethods[param]();
+                
              });
             SaveOrCancelCommand = new RelayCommand(obj =>
              {
@@ -368,132 +342,25 @@ namespace TransportLogistics.ViewModels
                  if (param.StartsWith ("save"))
                  {
                      string key = param.Split(' ')[1];
-
-                     switch (key)
-                     {
-                         case "user":
-                             {
-                                 usersService.CreateOrUpdate(SelectedUser);
-                                 Users = new ObservableCollection<UserDTO>(usersService.GetAll());
-                                 break;
-                             }
-                         case "car":
-                             {
-                                 carService.CreateOrUpdate(SelectedCar);
-                                 Cars = new ObservableCollection<CarDTO>(carService.GetAll());
-                                 break;
-                             }
-                         case "role":
-                             {
-                                 rolesService.CreateOrUpdate(SelectedRole);
-                                 Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
-                                 break;
-                             }
-                         case "status":
-                             {
-                                 orderStatusService.CreateOrUpdate(SelectedOrderStatus);
-                                 OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
-                                 break;
-                             }
-                         case "order":
-                             {
-                                 orderService.CreateOrUpdate(SelectedOrder);
-                                 Orders = new ObservableCollection<OrderDTO>(orderService.GetAll());
-
-                                 foreach (var i in Orders)
-                                 {
-                                     if (i.StatusId.HasValue)
-                                     {
-                                         i.Status = orderStatusService.Get((int)(i.StatusId));
-                                         i.OrderUser = usersService.Get((int)(i.UserId));
-                                     }
-                                 }
-
-                                 break;
-                             }
-                     }
-                     
+                     saveMethods[key]();
                  }
-                 else if (param == "cancel")
+                 else if (param.StartsWith("cancel"))
                  {
                      SelectedUser = null;
+                     SelectedCar = null;
+                     SelectedOrder = null;
+                     SelectedOrderStatus = null;
+                     SelectedRole = null;
+                     //перезалить вьюху////////////////////////////////////////////////////////
                  }
 
              });
-            RemoveCommand = new RelayCommand(obj => {
-                var param = obj as String;
-               
-                MessageBox.Show(param);
-                switch (param)
-                {
-                    case "user":
-                        {
-
-                            MessageBoxResult result=MessageBox.Show($"Вы действительно хотите удалить {SelectedUser.UserLastName} {SelectedUser.UserFirstName} {SelectedUser.UserPatronymic}","?",MessageBoxButton.YesNo) ;
-                            if (result == MessageBoxResult.Yes)
-                            {
-                                //usersService.Remove(SelectedUser);
-                            }
-                            //usersService.Remove(SelectedUser);
-                                break;
-                        }
-                    case "":
-                        {
-                            CurrentView = new OrderView();
-                            break;
-                        }
-                    case "2":
-                        {
-                            CurrentView = new AccountView();
-                            break;
-                        }
-                }
-            },(obj)=>SelectedUser!=null);
+        
             SortCommand = new RelayCommand(obj =>
              {
                  var param = obj as String;
-                 if (param == "byDate")
-                 {
-                     var select =orderService.GetAll().Where(order=>order.Date==SortDate);
-                     Orders =new ObservableCollection<OrderDTO>(select);
-                 }
-                 else if (param == "byUser")
-                 {
-
-                     var select = Orders.Where(order => order.UserId == SelectedUser.UserId);
-                     Orders = new ObservableCollection<OrderDTO>(select);
-                 }
-                 else if(param== "byCar")
-                 {
-                     var select = Orders.Where(order => order.CarId == SelectedCar.CarId);
-                     Orders = new ObservableCollection<OrderDTO>(select);
-                 }
-                 else if (param == "find")
-                 {
-                     var select = Orders.Where(order => order.WhereFrom.Contains(FindString) || order.Where.Contains(FindString));
-                     Orders = new ObservableCollection<OrderDTO>(select);
-                 }
-                 else if (param == "filling")
-                 {
-                     var select = orderService.GetAll().Where(order => order.Date == SortDate && order.CarId==SelectedCar?.CarId && order.StatusId==2);
-                     Orders = new ObservableCollection<OrderDTO>(select);
-                 }
-
-                 else if (param == "clear")
-                 {
-                     Orders = new ObservableCollection<OrderDTO>(orderService.GetAll().OrderBy(x => x.Date));
-
-                     foreach (var i in Orders)
-                     {
-                         if (i.StatusId.HasValue)
-                         {
-                             i.Status = orderStatusService.Get((int)(i.StatusId));
-                             i.OrderUser = usersService.Get((int)(i.UserId));
-                         }
-                     }
-                     Orders.OrderBy(order => order.Date);
-                 }
-             });
+                 Orders = new ObservableCollection<OrderDTO>(sortMethods[param]());
+            });
             PrintVisualCommand = new RelayCommand(obj =>
              {
                  var viewDoc = obj as System.Windows.Media.Visual;
@@ -514,12 +381,7 @@ namespace TransportLogistics.ViewModels
        
     }
 
-    /*
-  private async void InitCollection()
-  {
-      await Task.Run(() => Roles = new ObservableCollection<string>(roleService.GetAll());
-  }*/
-
+  
 
 }
 

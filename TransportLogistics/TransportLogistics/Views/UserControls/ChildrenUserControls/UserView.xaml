@@ -16,18 +16,18 @@
             <Label Margin="100 0">Редактировние</Label>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Фамилия:</Label>
-                <TextBlock Width="180"
-                                             Text="{Binding SelectedUser.UserLastName}"></TextBlock>
+                <TextBox Width="180"
+                         Text="{Binding SelectedUser.UserLastName}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Имя:</Label>
                 <TextBox Width="180"
-                                             Text="{Binding SelectedUser.UserFirstName}"></TextBox>
+                         Text="{Binding SelectedUser.UserFirstName}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Отчество:</Label>
                 <TextBox Width="180"
-                                             Text="{Binding SelectedUser.UserPatronymic}"></TextBox>
+                         Text="{Binding SelectedUser.UserPatronymic}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Width="80">Документ:</Label>
@@ -38,8 +38,10 @@
                 <Label Width="80">Роль:</Label>
                 <ComboBox Width="180"
                           ItemsSource="{Binding Roles}"
-                          SelectedItem="{Binding SelectedRole}"
-                          Text="{Binding SelectedUser.RoleName}"
+                          SelectedValue="{Binding SelectedUser.RoleId}"
+                          SelectedValuePath="RoleId"
+                          Text="{Binding SelectedUser.Role.RoleName}"
+                         
                          ></ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="030">
@@ -50,7 +52,7 @@
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
-                        CommandParameter="cancel user">Отмена</Button>
+                        CommandParameter="cancel">Отмена</Button>
             </StackPanel>
     
 

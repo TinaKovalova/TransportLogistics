@@ -37,7 +37,8 @@
                     <Label Width="80">Роль:</Label>
                     <ComboBox Width="180"
                               ItemsSource="{Binding Roles}" 
-                              SelectedValue="{Binding User.RoleName}"></ComboBox>
+                              SelectedValue="{Binding User.Role.RoleId}"
+                              SelectedValuePath="RoleId"></ComboBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal"

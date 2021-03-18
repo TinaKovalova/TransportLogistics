@@ -81,7 +81,7 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 }
                 else if (param == "cancel")
                 {
-                    User = null;
+                    User = new UserDTO();
                 }
 
             });
