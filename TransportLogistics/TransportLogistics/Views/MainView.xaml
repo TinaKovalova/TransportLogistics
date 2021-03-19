@@ -15,7 +15,7 @@
             <RowDefinition Height="0.4*"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="AliceBlue" Margin="3">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="WhiteSmoke" Margin="3">
             <Button Width="150"
                     FontSize="12"
                     FontWeight="DemiBold"
@@ -55,7 +55,10 @@
             </Button>
         </StackPanel>
         <Grid Grid.Row="1"
-              Background="CadetBlue">
+              >
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding PathImage}"></ImageBrush>
+            </Grid.Background>
             <ContentControl Grid.Column="1" Content="{Binding CurrentView}">
                 
 

@@ -73,9 +73,25 @@
         </StackPanel>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden">
             <ListView ItemsSource="{Binding Orders}"
-                      SelectedItem="{Binding SelectedOrder}">
+                      SelectedItem="{Binding SelectedOrder}"
+                      FontStyle="Normal">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="AliceBlue" />
+                        <Setter Property="BorderBrush" Value="CadetBlue" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="FontWeight" Value="DemiBold" />
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="DarkBlue" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
                 <ListView.View>
-                    <GridView Selector.IsSelected="False" >
+                    <GridView Selector.IsSelected="False">
                         <GridViewColumn DisplayMemberBinding="{Binding Date,StringFormat={}{0:dd.MM.yyyy}}"
                                         Width="70">Дата</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Car.CarNumber}"

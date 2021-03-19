@@ -39,6 +39,16 @@ namespace TransportLogistics.ViewModels
         Dictionary<string, Action> saveMethods;
         Dictionary<string, Func<IEnumerable<OrderDTO>>> sortMethods;
         bool loading = true;
+        private string pathImage= "/Icons/Loading_vector.jpg";
+        public string PathImage
+        {
+            get => pathImage;
+            set
+            {
+                pathImage = value;
+                Notify();
+            }
+        }
         private IService<RoleDTO> rolesService;
         private IService<UserDTO> usersService;
         private IService<OrderStatusDTO> orderStatusService;
@@ -79,6 +89,9 @@ namespace TransportLogistics.ViewModels
             set
             {
                 loading = value;
+                if(value==false)
+                    PathImage = "/Icons/shipping_truck.png";
+                Notify();
             }
         }
         public RoleDTO SelectedRole {

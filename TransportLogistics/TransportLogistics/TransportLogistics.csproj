@@ -257,7 +257,13 @@
     <Resource Include="Icons\back.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\Loading.png" />
+    <Resource Include="Icons\way.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Loading_vector.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\shipping_truck.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -11,9 +11,6 @@ namespace BLL.DTO
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
-
-       // public  ObservableCollection<UserDTO> Users { get; set; }
-
         public override string ToString() => $"{RoleName}";
        
 

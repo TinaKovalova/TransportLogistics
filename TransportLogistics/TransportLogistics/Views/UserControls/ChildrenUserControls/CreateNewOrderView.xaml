@@ -8,49 +8,57 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{StaticResource vmlocator}">
     <Grid DataContext="{Binding CreateNewOrderModel}"
-          Background="AliceBlue">
+          Background="WhiteSmoke">
         <StackPanel Margin="20">
             <Label HorizontalAlignment="Center" Margin="10 10 10 30"
                    FontSize="14" FontWeight="Bold">Добавление нового заказа</Label>
             <StackPanel Orientation="Horizontal">
                 
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="90">Дата:</Label>
-                   
-                    <DatePicker SelectedDate="{Binding CurrentOrder.Date}"></DatePicker>
+                    <Label Width="90" FontWeight="DemiBold">Дата:</Label>
 
+                    <DatePicker SelectedDate="{Binding CurrentOrder.Date}" 
+                                FontWeight="DemiBold"></DatePicker>
                    
                 </StackPanel>
                
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="100">Ответственный:</Label>
+                    <Label Width="100"
+                           FontWeight="DemiBold">Ответственный:</Label>
                     <ComboBox Width="200"
+                              FontWeight="DemiBold"
                           ItemsSource="{Binding Users}"
                           SelectedItem="{Binding CurrentOrder.OrderUser}"></ComboBox>
-                    <Label Width="50" Margin="20 0 0 0" >Статус:</Label>
+                    <Label Width="50" 
+                           Margin="20 0 0 0"
+                           FontWeight="DemiBold">Статус:</Label>
                   
                     <TextBlock Width="100" 
                                Padding="4"
                                TextAlignment="Center"
+                               FontWeight="DemiBold"
                                Text="{Binding CurrentOrder.Status.StatusName}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="90">Откуда:</Label>
+                    <Label Width="90" FontWeight="DemiBold">Откуда:</Label>
                     <TextBox Width="220"
+                             FontWeight="DemiBold"
                            Text="{Binding CurrentOrder.WhereFrom}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="80">Куда:</Label>
+                    <Label Width="80" FontWeight="DemiBold">Куда:</Label>
                     <TextBox Width="220"
+                             FontWeight="DemiBold"
                          Text="{Binding CurrentOrder.Where}"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="90">Примечание:</Label>
+                    <Label Width="90" FontWeight="DemiBold">Примечание:</Label>
                     <TextBox Width="400"
+                             FontWeight="DemiBold"
                          Text="{Binding CurrentOrder.Note}"></TextBox>
                 </StackPanel>
 
@@ -58,10 +66,12 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                 <Button Margin="5"
                         Width="100"
+                        FontWeight="DemiBold"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
                         CommandParameter="save">Сохранить</Button>
                 <Button Margin="5"
                         Width="100"
+                        FontWeight="DemiBold"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
                         CommandParameter="cancel">Отмена</Button>
             </StackPanel>

@@ -31,7 +31,7 @@
 
         </StackPanel>
 
-        <Grid Grid.Row="1" Background="CadetBlue">
+        <Grid Grid.Row="1" Background="WhiteSmoke">
             <ContentControl Content="{Binding CurrentFirstChildView}">
 
             </ContentControl>
