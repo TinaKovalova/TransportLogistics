@@ -12,21 +12,21 @@
             <ColumnDefinition Width="1.6*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Margin="5"  Background="CadetBlue">
-            <Label Margin="100 0">Редактировние</Label>
+        <StackPanel Grid.Column="1" Margin="5" Background="CadetBlue">
+            <Label HorizontalAlignment="Center" FontSize="14" FontWeight="Bold">Редактировние</Label>
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Width="80">Название:</Label>
-                <TextBox Width="180"
+                <Label Width="100">Название:</Label>
+                <TextBox Width="160"
                            Text="{Binding SelectedCar.CarName}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Width="80">Номер:</Label>
-                <TextBox Width="180"
+                <Label Width="100">Номер:</Label>
+                <TextBox Width="160"
                          Text="{Binding SelectedCar.CarNumber}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Width="80">Расход топлива:</Label>
-                <TextBox Width="180"
+                <Label Width="100">Расход топлива:</Label>
+                <TextBox Width="160"
                          Text="{Binding SelectedCar.FuelConsumption}"></TextBox>
             </StackPanel>
           

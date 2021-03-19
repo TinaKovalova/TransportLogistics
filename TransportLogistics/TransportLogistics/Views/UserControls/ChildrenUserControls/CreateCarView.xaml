@@ -15,22 +15,22 @@
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="135">Название автомобиля:</Label>
                     <TextBox Width="180"
-                             Text="{Binding SelectedCar.CarName}"></TextBox>
+                             Text="{Binding CurrentCar.CarName}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="60">Номер:</Label>
                     <TextBox Width="180"
-                             Text="{Binding SelectedCar.CarNumber}"></TextBox>
+                             Text="{Binding CurrentCar.CarNumber}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Width="100">Расход топлива:</Label>
                     <TextBox Width="70"
-                             Text="{Binding SelectedCar.FuelConsumption}"></TextBox>
+                             Text="{Binding CurrentCar.FuelConsumption}"></TextBox>
                 </StackPanel>
             </StackPanel>
            
             <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Center"
                         Margin="30">
                 <Button Margin="5"
                         Width="100"

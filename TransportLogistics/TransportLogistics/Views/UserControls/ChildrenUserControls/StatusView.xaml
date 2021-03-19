@@ -13,8 +13,9 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="1" Margin="5"  Background="CadetBlue">
-            <Label Margin="100 0">Редактировние</Label>
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <Label HorizontalAlignment="Center" FontSize="14" FontWeight="Bold">Редактировние</Label>
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center" Margin="5">
                 <Label Width="80">Статус:</Label>
                 <TextBox Width="180"
                          Text="{Binding SelectedOrderStatus.StatusName}"></TextBox>

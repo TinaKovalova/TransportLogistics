@@ -2,6 +2,7 @@
 using BLL.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,24 +15,22 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
     public class CreateRoleViewModel: BaseNotifyPropertyChanged
     {
         IService<RoleDTO> rolesService;
-        RoleDTO selectedRoleDTO;
-        public RoleDTO SelectedRoleDTO
+        RoleDTO currentRoleDTO;
+        public RoleDTO CurrentRoleDTO
         {
-            get => selectedRoleDTO;
+            get => currentRoleDTO;
             set
             {
-                selectedRoleDTO = value;
+                currentRoleDTO = value;
                 Notify();
             }
-
         }
         public ICommand SaveOrCancelCommand { get; set; }
         public CreateRoleViewModel(IService<RoleDTO> rolesService)
         {
             this.rolesService = rolesService;
-            selectedRoleDTO = new RoleDTO();
+            CurrentRoleDTO = new RoleDTO();
             InitCommand();
-
         }
         private void InitCommand()
         {
@@ -42,25 +41,29 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 {
                     try
                     {
-                        rolesService.CreateOrUpdate(SelectedRoleDTO);
-                        MessageBox.Show("Роль создана");
-                        SelectedRoleDTO = new RoleDTO();
-
+                        if (CurrentRoleDTO.RoleName != null)
+                        {
+                            rolesService.CreateOrUpdate(CurrentRoleDTO);
+                            MessageBox.Show("Роль создана");
+                            CurrentRoleDTO = new RoleDTO();
+                        }
+                        else
+                            MessageBox.Show("Некорректно заполнены данные!\nЗапись не сохранена.");
+                    }
+                    catch (DbEntityValidationException)
+                    {
+                        MessageBox.Show("Некорректно заполнены данные!\nЗапись невалидна.");
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-
-
                 }
                 else if (param == "cancel")
                 {
-                    SelectedRoleDTO = null;
+                    CurrentRoleDTO = new RoleDTO();
                 }
-
             });
-
         }
     }
 }

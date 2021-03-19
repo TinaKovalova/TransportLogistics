@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Threading;
 using TransportLogistics.Infrastructure;
 using TransportLogistics.Views.UserControls;
 using TransportLogistics.Views.UserControls.ChildrenUserControls;
@@ -17,12 +18,9 @@ namespace TransportLogistics.ViewModels
 {
     public class MainViewModel:BaseNotifyPropertyChanged
     {
-        #region Fields & Propertyes
+        #region fields & propertyes
         private UserControl currentView;
         private UserControl currentFirstChildView;
-     
-        
-
         private TabItem selectedTabItem;
         private ObservableCollection<RoleDTO> roles;
         private ObservableCollection<UserDTO> users;
@@ -41,16 +39,11 @@ namespace TransportLogistics.ViewModels
         Dictionary<string, Action> saveMethods;
         Dictionary<string, Func<IEnumerable<OrderDTO>>> sortMethods;
         bool loading = true;
-
-
-
-
         private IService<RoleDTO> rolesService;
         private IService<UserDTO> usersService;
         private IService<OrderStatusDTO> orderStatusService;
         private IService<CarDTO> carService;
         private IService<OrderDTO> orderService;
-
         public UserControl CurrentFirstChildView
         {
             get => currentFirstChildView;
@@ -60,18 +53,6 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
-       
-       /* public UserControl PrevView
-        {
-            get => prevView;
-            set
-            {
-                prevView = value;
-                Notify();
-            }
-        }*/
-
-       
         public TabItem SelectedTabItem
         {
             get => selectedTabItem;
@@ -92,6 +73,14 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
+        public bool Loading
+        {
+            get => loading;
+            set
+            {
+                loading = value;
+            }
+        }
         public RoleDTO SelectedRole {
             get => selectedRole;
             set
@@ -106,7 +95,6 @@ namespace TransportLogistics.ViewModels
             set
             {
                selectedUser = value;
-            
                 Notify();
             }
         }
@@ -116,9 +104,6 @@ namespace TransportLogistics.ViewModels
             set
             {
                 selectedOrder = value;
-               // selectedOrder.StatusId = value.Status?.StatusId;
-               // selectedOrder.UserId = value.OrderUser?.UserId;
-
                 Notify();
             }
         }
@@ -128,7 +113,6 @@ namespace TransportLogistics.ViewModels
             set
             {
                 selectedOrderStatus = value;
-
                 Notify();
             }
         }
@@ -138,7 +122,6 @@ namespace TransportLogistics.ViewModels
             set
             {
                 selectedCar = value;
-
                 Notify();
             }
         }
@@ -205,24 +188,17 @@ namespace TransportLogistics.ViewModels
                 Notify();
             }
         }
-
-
         #endregion
-
-
         #region Commands
-
         public ICommand ChangeViewCommand { get; set; }
         public ICommand CreateCommand { get; set; }
         public ICommand SaveOrCancelCommand { get; set; }
         public ICommand SortCommand { get; set; }
         public ICommand PrintVisualCommand { get; set; }
         public ICommand SaveVisualCommand { get; set; }
-
         #endregion
-
-        public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService, IService<OrderStatusDTO> orderStatusService, 
-                                IService<CarDTO> carService, IService<OrderDTO> orderService)
+        public MainViewModel(IService<RoleDTO> rolesService, IService<UserDTO>usersService,
+                                IService<OrderStatusDTO> orderStatusService,IService<CarDTO> carService, IService<OrderDTO> orderService)
         {
             this.rolesService = rolesService;
             this.usersService = usersService;
@@ -233,20 +209,18 @@ namespace TransportLogistics.ViewModels
             InitCollection();
             InitDictionary();
             InitCommands();
-           
-
         }
-        private void InitCollection()
+        private async  void InitCollection()
         {
-            Task.Run(() => {
+             await  Task.Run(() =>
+             {
                 Roles = new ObservableCollection<RoleDTO>(rolesService.GetAll());
                 Users = new ObservableCollection<UserDTO>(usersService.GetAll());
                 OrderStatuses = new ObservableCollection<OrderStatusDTO>(orderStatusService.GetAll());
                 Cars = new ObservableCollection<CarDTO>(carService.GetAll());
                 InitOrdersCollection();
-                loading = false;
-            } );
-          
+                Loading = false;
+             });
         }
         private void InitOrdersCollection()
         {
@@ -279,7 +253,6 @@ namespace TransportLogistics.ViewModels
                 ["Роли"] = () => CurrentFirstChildView = new RoleView(),
                 ["Статус заказа"] = () => CurrentFirstChildView = new StatusView()
             };
-
             saveMethods = new Dictionary<string, Action>
             {
                 ["user"] = () =>
@@ -358,11 +331,8 @@ namespace TransportLogistics.ViewModels
                      SelectedOrderStatus = null;
                      SelectedRole = null;
                      saveMethods[key]();
-      
                  }
-
              });
-        
             SortCommand = new RelayCommand(obj =>
              {
                  var param = obj as String;
@@ -384,11 +354,6 @@ namespace TransportLogistics.ViewModels
                 
             });
         }
-
-       
     }
-
-  
-
 }
 

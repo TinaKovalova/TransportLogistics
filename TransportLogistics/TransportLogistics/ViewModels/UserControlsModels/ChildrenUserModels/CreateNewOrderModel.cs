@@ -48,10 +48,8 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 currentOrder = value;
                 currentOrder.StatusId =statusService.Get(1).StatusId; ;
                 currentOrder.Date = DateTime.Now;
-                
                 Notify();
             }
-
         }
         public OrderStatusDTO CurrentStatus
         {
@@ -63,23 +61,16 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
             }
 
         }
-
         public ICommand SaveOrCancelCommand { get; set; }
         public CreateNewOrderModel(IService<OrderDTO> orderService, IService<UserDTO> userService, IService<OrderStatusDTO> statusService)
         {
             this.orderService = orderService;
             this.userService = userService;
             this.statusService = statusService;
-           
             CurrentOrder = new OrderDTO();
-             
-           
-            
-
             Users = new ObservableCollection<UserDTO>(userService.GetAll());
             Statuses = new ObservableCollection<OrderStatusDTO>(statusService.GetAll());
             InitCommand();
-
         }
         private void InitCommand()
         {
@@ -108,17 +99,12 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                     {
                         MessageBox.Show(ex.Message);
                     }
-                   
-
                 }
                 else if (param == "cancel")
                 {
                     CurrentOrder = new OrderDTO();
-                    
                 }
-
             });
-
         }
     }
 }

@@ -44,7 +44,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Center"
                         Margin="30">
                 <Button Margin="5"
                         Width="100"

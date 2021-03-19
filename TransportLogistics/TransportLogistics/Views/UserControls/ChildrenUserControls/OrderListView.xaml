@@ -112,8 +112,8 @@
                              ></ComboBox>
 
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="100">Ответственный:</Label>
+                <StackPanel Orientation="Horizontal"  Margin="30 5 5 5" >
+                    <Label Width="100" >Ответственный:</Label>
                     <TextBlock Width="150" Margin="3" TextAlignment="Center"
                                Text="{Binding SelectedOrder.OrderUser.UserLastName}"></TextBlock>
                    

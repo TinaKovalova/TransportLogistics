@@ -2,6 +2,7 @@
 using BLL.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,24 +15,22 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
      public class CreateCarViewModel: BaseNotifyPropertyChanged
     {
         IService<CarDTO> carService;
-        CarDTO selectedCar;
-        public CarDTO SelectedCar
+        CarDTO currentCar;
+        public CarDTO CurrentCar
         {
-            get => selectedCar;
+            get => currentCar;
             set
             {
-                selectedCar = value;
+                currentCar = value;
                 Notify();
             }
-
         }
         public ICommand SaveOrCancelCommand { get; set; }
         public CreateCarViewModel(IService<CarDTO> carService)
         {
             this.carService = carService;
-            selectedCar = new CarDTO();
+            CurrentCar = new CarDTO();
             InitCommand();
-
         }
         private void InitCommand()
         {
@@ -42,25 +41,29 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 {
                     try
                     {
-                        carService.CreateOrUpdate(SelectedCar);
-                        MessageBox.Show("Автомобиль создан");
-                        SelectedCar = new CarDTO();
-
+                        if (CurrentCar.CarName!= null & CurrentCar.CarNumber!=null)
+                        {
+                            carService.CreateOrUpdate(CurrentCar);
+                            MessageBox.Show("Автомобиль создан");
+                            CurrentCar = new CarDTO();
+                        }
+                        else
+                            MessageBox.Show("Некорректно заполнены данные!\nЗапись не сохранена.");
+                    }
+                    catch (DbEntityValidationException)
+                    {
+                        MessageBox.Show("Некорректно заполнены данные!\nЗапись невалидна.");
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-
-
                 }
                 else if (param == "cancel")
                 {
-                    SelectedCar = null;
+                    CurrentCar = new CarDTO();
                 }
-
             });
-
         }
     }
 }

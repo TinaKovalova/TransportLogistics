@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:TransportLogistics.Infrastructure"
         xmlns:local="clr-namespace:TransportLogistics"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1000"
+        Title="Transport logistics" Height="650" Width="1000"
         DataContext="{StaticResource vmlocator}">
 
 
@@ -57,6 +57,7 @@
         <Grid Grid.Row="1"
               Background="CadetBlue">
             <ContentControl Grid.Column="1" Content="{Binding CurrentView}">
+                
 
             </ContentControl>
         </Grid>

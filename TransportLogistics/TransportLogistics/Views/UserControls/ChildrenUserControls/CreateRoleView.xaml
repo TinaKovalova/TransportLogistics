@@ -11,10 +11,11 @@
         <StackPanel Margin="5">
             <Label HorizontalAlignment="Center" Margin="10"
                    FontSize="14" FontWeight="Bold">Добавление новой роли</Label>
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center" Margin="5">
                 <Label Width="80">Роль:</Label>
                 <TextBox Width="180"
-                         Text="{Binding SelectedRoleDTO.RoleName}"></TextBox>
+                         Text="{Binding CurrentRoleDTO.RoleName}"></TextBox>
               
             </StackPanel>
 
@@ -26,7 +27,7 @@
                 <Button Margin="5"
                         Width="100"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor},Path=DataContext.SaveOrCancelCommand}"
-                        CommandParameter="cansel">Отмена</Button>
+                        CommandParameter="cancel">Отмена</Button>
 
             </StackPanel>
 

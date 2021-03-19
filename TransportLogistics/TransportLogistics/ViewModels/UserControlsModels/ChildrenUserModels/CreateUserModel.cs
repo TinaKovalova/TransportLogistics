@@ -3,12 +3,14 @@ using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TransportLogistics.Infrastructure;
+using TransportLogistics.ViewModels;
 
 namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
 {
@@ -67,25 +69,29 @@ namespace TransportLogistics.ViewModels.UserControlsModels.ChildrenUserModels
                 {
                     try
                     {
-                        usersService.CreateOrUpdate(User);
-                        MessageBox.Show("Пользователь создан");
-                        User = new UserDTO();
-
+                        if (User.UserFirstName!= null & User.UserLastName!= null & User.UserPatronymic!=null)
+                        {
+                            usersService.CreateOrUpdate(User);
+                            MessageBox.Show("Пользователь создан");
+                            User = new UserDTO();
+                        }
+                        else
+                            MessageBox.Show("Некорректно заполнены данные!\nЗапись не сохранена.");
                     }
-                    catch(Exception ex)
+                    catch (DbEntityValidationException)
+                    {
+                        MessageBox.Show("Некорректно заполнены данные!\nЗапись невалидна.");
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-                  
-
                 }
                 else if (param == "cancel")
                 {
                     User = new UserDTO();
                 }
-
             });
-
         }
     }
 }

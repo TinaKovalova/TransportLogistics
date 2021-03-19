@@ -10,10 +10,12 @@
     <Grid DataContext="{Binding CreateNewOrderModel}"
           Background="AliceBlue">
         <StackPanel Margin="20">
+            <Label HorizontalAlignment="Center" Margin="10 10 10 30"
+                   FontSize="14" FontWeight="Bold">Добавление нового заказа</Label>
             <StackPanel Orientation="Horizontal">
                 
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="80">Дата:</Label>
+                    <Label Width="90">Дата:</Label>
                    
                     <DatePicker SelectedDate="{Binding CurrentOrder.Date}"></DatePicker>
 
@@ -25,9 +27,9 @@
                     <ComboBox Width="200"
                           ItemsSource="{Binding Users}"
                           SelectedItem="{Binding CurrentOrder.OrderUser}"></ComboBox>
-                    <Label Width="100">Статус:</Label>
+                    <Label Width="50" Margin="20 0 0 0" >Статус:</Label>
                   
-                    <TextBlock Width="150" 
+                    <TextBlock Width="100" 
                                Padding="4"
                                TextAlignment="Center"
                                Text="{Binding CurrentOrder.Status.StatusName}"/>
@@ -35,7 +37,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="80">Откуда:</Label>
+                    <Label Width="90">Откуда:</Label>
                     <TextBox Width="220"
                            Text="{Binding CurrentOrder.WhereFrom}"></TextBox>
                 </StackPanel>
@@ -47,7 +49,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="80">Примечание:</Label>
+                    <Label Width="90">Примечание:</Label>
                     <TextBox Width="400"
                          Text="{Binding CurrentOrder.Note}"></TextBox>
                 </StackPanel>
